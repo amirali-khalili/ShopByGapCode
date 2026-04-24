@@ -149,8 +149,8 @@
             {% if products %}
             <div class="row g-4">
                 {% for product in products %}
-                <div class="col-md-4 col-sm-6">
-                    <div class="card product-card h-100">
+                <div class="col-lg-3 col-6">
+                        <div class="card product-card h-100">
                         <div class="position-relative">
                             {% if product.image %}
                                 <img src="{{ product.image.url }}" class="card-img-top product-img" alt="{{ product.name }}">
@@ -179,9 +179,9 @@
                             {% endif %}
                         </div>
                         <div class="card-footer border-0" style="background: transparent;">
-                            <a href="{% url 'shop:product_detail' product.slug %}" class="btn btn-primary w-100">
-                                <i class="bi bi-eye"></i> مشاهده جزئیات
-                            </a>
+                   <a href="{% url 'shop:product_detail' product.slug %}" class="btn btn-primary btn-sm">
+    <i class="bi bi-eye"></i> مشاهده جزئیات
+</a>
                         </div>
                     </div>
                 </div>

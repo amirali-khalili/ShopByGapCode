@@ -105,7 +105,7 @@ def contact(request):
 
 def home(request):
     """صفحه اصلی"""
-    featured_products = Product.objects.filter(is_featured=True, available=True)[:8]
+    featured_products = Product.objects.filter(is_featured=True, available=True)[:4]
     categories = Category.objects.all()[:6]
     context = {
         'featured_products': featured_products,
@@ -115,6 +115,46 @@ def home(request):
 
 
 def product_list(request, category_slug=None):
+    """لیست محصولات"""
+    category = None
+    products = Product.objects.filter(available=True)
+    
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        products = products.filter(category=category)
+    
+    # Search
+    query = request.GET.get('q')
+    if query:
+        products = products.filter(
+            Q(name__icontains=query) | 
+            Q(description__icontains=query)
+        )
+    
+    # Filter by price
+    min_price = request.GET.get('min_price')
+    max_price = request.GET.get('max_price')
+    if min_price:
+        products = products.filter(price__gte=min_price)
+    if max_price:
+        products = products.filter(price__lte=max_price)
+    
+    # Sort
+    sort = request.GET.get('sort', '-created_at')
+    if sort in ['price', '-price', 'name', '-created_at']:
+        products = products.order_by(sort)
+    
+    categories = Category.objects.all()
+    
+    context = {
+        'category': category,
+        'products': products,
+        'categories': categories,
+        'query': query,
+    }
+    return render(request, 'shop/product_list.html', context)
+
+def product_list_category(request, category_slug=None):
     """لیست محصولات"""
     category = None
     products = Product.objects.filter(available=True)

@@ -20,8 +20,8 @@
     <h2 class="text-center mb-4">دسته‌بندی‌ها</h2>
     <div class="row g-4">
         {% for category in categories %}
-        <div class="col-md-4">
-            <a href="{% url 'shop:product_list_by_category' category.slug %}" class="text-decoration-none">
+        <div class="col-lg-3 col-6">
+                <a href="{% url 'shop:product_list_by_category' category.slug %}" class="text-decoration-none">
                 <div class="category-card">
                     {% if category.image %}
                         <img src="{{ category.image.url }}" alt="{{ category.name }}">
@@ -45,8 +45,8 @@
     <h2 class="text-center mb-4">محصولات ویژه</h2>
     <div class="row g-4">
         {% for product in featured_products %}
-        <div class="col-md-3 col-sm-6">
-            <div class="card product-card h-100">
+<div class="col-lg-3 col-6">
+                <div class="card product-card h-100">
                 <div class="position-relative">
                     {% if product.image %}
                         <img src="{{ product.image.url }}" class="card-img-top product-img" alt="{{ product.name }}">
@@ -59,7 +59,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text text-muted small">{{ product.description|truncatewords:10 }}</p>
+                    <p class="card-text text-white small">{{ product.description|truncatewords:10 }}</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             {% if product.discount_price %}
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer bg-white border-0">
+                <div class="card-footer bg-muted border-0">
                     <a href="{% url 'shop:product_detail' product.slug %}" class="btn btn-primary w-100">
                         <i class="bi bi-eye"></i> مشاهده جزئیات
                     </a>
@@ -91,8 +91,8 @@
                 <div class="feature-icon">
                     <i class="bi bi-truck fs-1 text-white"></i>
                 </div>
-                <h5>ارسال سریع</h5>
-                <p class="text-muted">ارسال به سراسر کشور</p>
+                <h5 class="text-white">ارسال سریع</h5>
+                <p class="text-white">ارسال به سراسر کشور</p>
             </div>
         </div>
         <div class="col-md-3">
@@ -100,8 +100,8 @@
                 <div class="feature-icon">
                     <i class="bi bi-shield-check fs-1 text-white"></i>
                 </div>
-                <h5>ضمانت اصالت</h5>
-                <p class="text-muted">محصولات اصل و با کیفیت</p>
+                <h5 class="text-white">ضمانت اصالت</h5>
+                <p class="text-white">محصولات اصل و با کیفیت</p>
             </div>
         </div>
         <div class="col-md-3">
@@ -109,8 +109,8 @@
                 <div class="feature-icon">
                     <i class="bi bi-arrow-repeat fs-1 text-white"></i>
                 </div>
-                <h5>بازگشت کالا</h5>
-                <p class="text-muted">7 روز ضمانت بازگشت</p>
+                <h5 class="text-white">بازگشت کالا</h5>
+                <p class="text-white">7 روز ضمانت بازگشت</p>
             </div>
         </div>
         <div class="col-md-3">
@@ -118,8 +118,8 @@
                 <div class="feature-icon">
                     <i class="bi bi-headset fs-1 text-white"></i>
                 </div>
-                <h5>پشتیبانی 24/7</h5>
-                <p class="text-muted">پاسخگویی در تمام ساعات</p>
+                <h5 class="text-white">پشتیبانی 24/7</h5>
+                <p class="text-white">پاسخگویی در تمام ساعات</p>
             </div>
         </div>
     </div>
