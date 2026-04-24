@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+
+{% block title %}پروفایل کاربری - فروشگاه پوشاک{% endblock %}
+
+{% block extra_css %}
+<style>
+    .profile-header {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--card-border);
+        border-radius: 24px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-md);
+        text-align: center;
+    }
+    
+    .profile-header h2 {
+        color: var(--text-primary);
+    }
+    
+    .profile-avatar {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 5px solid rgba(249, 115, 22, 0.3);
+        box-shadow: var(--shadow-md);
+        object-fit: cover;
+    }
+    
+    .profile-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--card-border);
+        border-radius: 24px;
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+    }
+    
+    .profile-card .card-header {
+        background: rgba(249, 115, 22, 0.1);
+        border-bottom: 1px solid var(--card-border);
+        color: var(--text-primary);
+    }
+    
+    .profile-card .card-body {
+        color: var(--text-primary);
+    }
+    
+    .profile-card h4,
+    .profile-card h5 {
+        color: var(--text-primary);
+    }
+    
+    .profile-card .form-label {
+        color: var(--text-primary);
+    }
+    
+    .table {
+        margin-bottom: 0;
+        color: var(--text-primary);
+    }
+    
+    .table thead {
+        background: rgba(249, 115, 22, 0.1);
+        color: var(--text-primary);
+    }
+    
+    .table tbody tr {
+        transition: all 0.3s ease;
+        border-color: var(--card-border);
+    }
+    
+    .table tbody tr:hover {
+        background: rgba(249, 115, 22, 0.05);
+        transform: translateX(-5px);
+    }
+    
+    .table td,
+    .table th {
+        border-color: var(--card-border);
+        color: var(--text-primary);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="profile-header">
+        <h2 class="fw-bold mb-2"><i class="bi bi-person-circle"></i> پروفایل کاربری</h2>
+        <p class="text-muted mb-0">مدیریت اطلاعات و سفارش‌های شما</p>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card profile-card">
+                <div class="card-body text-center">
+                    {% if user.profile.avatar %}
+                        <img src="{{ user.profile.avatar.url }}" class="profile-avatar mb-3" alt="Avatar">
+                    {% else %}
+                        <div class="profile-avatar mx-auto mb-3 d-flex align-items-center justify-content-center" style="background: var(--primary-gradient);">
+                            <i class="bi bi-person-circle text-white" style="font-size: 80px;"></i>
+                        </div>
+                    {% endif %}
+                    <h4 class="fw-bold">{{ user.get_full_name|default:user.username }}</h4>
+                    <p class="text-muted">{{ user.email }}</p>
+                    <hr style="border-color: var(--card-border);">
+                    <p class="mb-1"><strong>نام کاربری:</strong> {{ user.username }}</p>
+                    <p class="mb-1"><strong>تاریخ عضویت:</strong> {{ user.date_joined|date:"Y/m/d" }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-8">
+            <div class="card profile-card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">ویرایش اطلاعات</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">{{ form.phone.label }}</label>
+                                {{ form.phone }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">{{ form.city.label }}</label>
+                                {{ form.city }}
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">{{ form.address.label }}</label>
+                            {{ form.address }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">{{ form.postal_code.label }}</label>
+                            {{ form.postal_code }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">{{ form.avatar.label }}</label>
+                            {{ form.avatar }}
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save"></i> ذخیره تغییرات
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card profile-card">
+                <div class="card-header">
+                    <h5 class="mb-0">سفارش‌های من</h5>
+                </div>
+                <div class="card-body">
+                    {% if orders %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>شماره سفارش</th>
+                                    <th>تاریخ</th>
+                                    <th>مبلغ</th>
+                                    <th>وضعیت</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in orders %}
+                                <tr>
+                                    <td>#{{ order.id }}</td>
+                                    <td>{{ order.created_at|date:"Y/m/d" }}</td>
+                                    <td class="fw-bold">{{ order.total_price|floatformat:0 }} تومان</td>
+                                    <td>
+                                        {% if order.status == 'pending' %}
+                                            <span class="badge bg-warning">{{ order.get_status_display }}</span>
+                                        {% elif order.status == 'confirmed' %}
+                                            <span class="badge bg-info">{{ order.get_status_display }}</span>
+                                        {% elif order.status == 'processing' %}
+                                            <span class="badge bg-primary">{{ order.get_status_display }}</span>
+                                        {% elif order.status == 'shipped' %}
+                                            <span class="badge bg-secondary">{{ order.get_status_display }}</span>
+                                        {% elif order.status == 'delivered' %}
+                                            <span class="badge bg-success">{{ order.get_status_display }}</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">{{ order.get_status_display }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'shop:order_detail' order.id %}" class="btn btn-sm btn-outline-primary">
+                                            <i class="bi bi-eye"></i> جزئیات
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-4">
+                        <i class="bi bi-inbox" style="font-size: 3rem; color: var(--primary-color);"></i>
+                        <p class="text-muted mt-3">شما هنوز سفارشی ثبت نکرده‌اید</p>
+                        <a href="{% url 'shop:product_list' %}" class="btn btn-primary">
+                            <i class="bi bi-bag"></i> شروع خرید
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

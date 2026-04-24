@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+
+{% block title %}جزئیات سفارش - فروشگاه پوشاک{% endblock %}
+
+{% block extra_css %}
+<style>
+    .order-success {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--card-border);
+        border-radius: 32px;
+        padding: 3rem 2rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .order-success h2 {
+        color: var(--text-primary);
+    }
+    
+    .success-icon {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto;
+        background: var(--success-gradient);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 40px rgba(249, 115, 22, 0.4);
+        animation: scaleIn 0.5s ease;
+    }
+    
+    @keyframes scaleIn {
+        from { transform: scale(0); }
+        to { transform: scale(1); }
+    }
+    
+    .order-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--card-border);
+        border-radius: 24px;
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+    }
+    
+    .order-card .card-header {
+        background: rgba(249, 115, 22, 0.1);
+        border-bottom: 1px solid var(--card-border);
+        color: var(--text-primary);
+    }
+    
+    .order-card .card-body {
+        color: var(--text-primary);
+    }
+    
+    .order-card h5,
+    .order-card h6 {
+        color: var(--text-primary);
+    }
+    
+    .table {
+        color: var(--text-primary);
+    }
+    
+    .table thead {
+        background: rgba(249, 115, 22, 0.1);
+    }
+    
+    .table td,
+    .table th {
+        border-color: var(--card-border);
+        color: var(--text-primary);
+    }
+    
+    .table tfoot td {
+        color: var(--text-primary);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="order-success text-center">
+        <div class="success-icon">
+            <i class="bi bi-check-circle-fill text-white" style="font-size: 4rem;"></i>
+        </div>
+        <h2 class="mt-4 fw-bold">سفارش شما با موفقیت ثبت شد!</h2>
+        <p class="text-muted mb-0">شماره سفارش: <strong style="color: var(--primary-color);">#{{ order.id }}</strong></p>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card order-card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">جزئیات سفارش</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <p><strong>تاریخ ثبت:</strong> {{ order.created_at|date:"Y/m/d - H:i" }}</p>
+                            <p><strong>وضعیت:</strong> 
+                                <span class="badge bg-warning">{{ order.get_status_display }}</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>نام گیرنده:</strong> {{ order.first_name }} {{ order.last_name }}</p>
+                            <p><strong>شماره تماس:</strong> {{ order.phone }}</p>
+                        </div>
+                    </div>
+                    
+                    <hr style="border-color: var(--card-border);">
+                    
+                    <h6 class="fw-bold mb-3">آدرس ارسال:</h6>
+                    <p class="text-muted">
+                        {{ order.city }}<br>
+                        {{ order.address }}<br>
+                        کد پستی: {{ order.postal_code }}
+                    </p>
+                    
+                    {% if order.notes %}
+                    <hr style="border-color: var(--card-border);">
+                    <h6 class="fw-bold mb-2">توضیحات:</h6>
+                    <p class="text-muted">{{ order.notes }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="card order-card">
+                <div class="card-header">
+                    <h5 class="mb-0">محصولات سفارش</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>محصول</th>
+                                    <th>قیمت واحد</th>
+                                    <th>تعداد</th>
+                                    <th>جمع</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in order.items.all %}
+                                <tr>
+                                    <td>
+                                        {{ item.product.name }}
+                                        {% if item.size %}<br><small class="text-muted">سایز: {{ item.size }}</small>{% endif %}
+                                        {% if item.color %}<br><small class="text-muted">رنگ: {{ item.color }}</small>{% endif %}
+                                    </td>
+                                    <td>{{ item.price|floatformat:0 }} تومان</td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td class="fw-bold">{{ item.get_total_price|floatformat:0 }} تومان</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3" class="text-end fw-bold">جمع کل:</td>
+                                    <td class="fw-bold price-new fs-5">{{ order.total_price|floatformat:0 }} تومان</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card order-card">
+                <div class="card-body text-center">
+                    <i class="bi bi-info-circle fs-1 mb-3" style="color: var(--primary-color);"></i>
+                    <h5>مراحل بعدی</h5>
+                    <p class="text-muted small">
+                        سفارش شما در حال بررسی است. پس از تأیید، محصولات برای ارسال آماده می‌شوند.
+                    </p>
+                    <hr style="border-color: var(--card-border);">
+                    <a href="{% url 'shop:profile' %}" class="btn btn-primary w-100 mb-2">
+                        <i class="bi bi-person"></i> مشاهده پروفایل
+                    </a>
+                    <a href="{% url 'shop:product_list' %}" class="btn btn-outline-primary w-100">
+                        <i class="bi bi-bag"></i> ادامه خرید
+                    </a>
+                </div>
+            </div>
+            
+            <div class="card order-card mt-3">
+                <div class="card-body">
+                    <h6 class="fw-bold mb-3"><i class="bi bi-headset"></i> پشتیبانی</h6>
+                    <p class="small text-muted">
+                        در صورت داشتن سوال یا مشکل با پشتیبانی تماس بگیرید:
+                    </p>
+                    <p class="small" style="color: var(--text-secondary);">
+                        <i class="bi bi-telephone"></i> 021-12345678<br>
+                        <i class="bi bi-envelope"></i> support@shop.com
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

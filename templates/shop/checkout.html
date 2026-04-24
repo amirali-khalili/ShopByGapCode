@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block title %}تسویه حساب - فروشگاه پوشاک{% endblock %}
+
+{% block extra_css %}
+<style>
+    .checkout-header {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--card-border);
+        border-radius: 24px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-md);
+        text-align: center;
+    }
+    
+    .checkout-header h2 {
+        color: var(--text-primary);
+    }
+    
+    .checkout-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--card-border);
+        border-radius: 24px;
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+    }
+    
+    .checkout-card .card-header {
+        background: rgba(249, 115, 22, 0.1);
+        border-bottom: 1px solid var(--card-border);
+        color: var(--text-primary);
+    }
+    
+    .checkout-card .card-body {
+        color: var(--text-primary);
+    }
+    
+    .checkout-card .form-label {
+        color: var(--text-primary);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="checkout-header">
+        <h2 class="fw-bold mb-2"><i class="bi bi-credit-card"></i> تسویه حساب</h2>
+        <p class="text-muted mb-0">تکمیل اطلاعات و ثبت نهایی سفارش</p>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card checkout-card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">اطلاعات ارسال</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">{{ form.first_name.label }}</label>
+                                {{ form.first_name }}
+                                {% if form.first_name.errors %}
+                                    <div class="text-danger small">{{ form.first_name.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">{{ form.last_name.label }}</label>
+                                {{ form.last_name }}
+                                {% if form.last_name.errors %}
+                                    <div class="text-danger small">{{ form.last_name.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">{{ form.phone.label }}</label>
+                                {{ form.phone }}
+                                {% if form.phone.errors %}
+                                    <div class="text-danger small">{{ form.phone.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">{{ form.city.label }}</label>
+                                {{ form.city }}
+                                {% if form.city.errors %}
+                                    <div class="text-danger small">{{ form.city.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">{{ form.address.label }}</label>
+                            {{ form.address }}
+                            {% if form.address.errors %}
+                                <div class="text-danger small">{{ form.address.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">{{ form.postal_code.label }}</label>
+                            {{ form.postal_code }}
+                            {% if form.postal_code.errors %}
+                                <div class="text-danger small">{{ form.postal_code.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">{{ form.notes.label }}</label>
+                            {{ form.notes }}
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success btn-lg w-100">
+                            <i class="bi bi-check-circle"></i> ثبت سفارش
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card checkout-card">
+                <div class="card-header">
+                    <h5 class="mb-0">خلاصه سفارش</h5>
+                </div>
+                <div class="card-body">
+                    {% for item in cart.items.all %}
+                    <div class="d-flex justify-content-between mb-3 pb-2 border-bottom" style="border-color: var(--card-border) !important;">
+                        <span class="text-muted">{{ item.product.name }} × {{ item.quantity }}</span>
+                        <span class="fw-semibold" style="color: var(--text-primary);">{{ item.get_total_price|floatformat:0 }} تومان</span>
+                    </div>
+                    {% endfor %}
+                    <div class="d-flex justify-content-between mb-2 mt-3">
+                        <span style="color: var(--text-secondary);">جمع جزء:</span>
+                        <span class="fw-semibold" style="color: var(--text-primary);">{{ cart.get_total_price|floatformat:0 }} تومان</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span style="color: var(--text-secondary);">هزینه ارسال:</span>
+                        <span class="fw-semibold" style="color: #10b981;">رایگان</span>
+                    </div>
+                    <hr style="border-color: var(--card-border);">
+                    <div class="d-flex justify-content-between">
+                        <span class="fs-5 fw-bold" style="color: var(--text-primary);">جمع کل:</span>
+                        <span class="fs-4 fw-bold price-new">{{ cart.get_total_price|floatformat:0 }} تومان</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

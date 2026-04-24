@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% block title %}ورود - فروشگاه پوشاک{% endblock %}
+
+{% block extra_css %}
+<style>
+    .auth-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 0;
+    }
+    
+    .auth-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(30px);
+        border: 1px solid var(--card-border);
+        border-radius: 32px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+    
+    .auth-card:hover {
+        box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+        transform: translateY(-5px);
+        border-color: rgba(249, 115, 22, 0.5);
+    }
+    
+    .auth-icon {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+        background: var(--primary-gradient);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 30px rgba(249, 115, 22, 0.5);
+        animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    
+    .auth-form .form-control {
+        background: rgba(249, 115, 22, 0.1);
+        border: 2px solid rgba(249, 115, 22, 0.3);
+        border-radius: 16px;
+        padding: 0.9rem 1.2rem;
+        transition: all 0.3s ease;
+        color: var(--text-primary);
+    }
+    
+    .auth-form .form-control::placeholder {
+        color: var(--text-muted);
+    }
+    
+    .auth-form .form-control:focus {
+        background: rgba(249, 115, 22, 0.15);
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.2);
+        transform: translateY(-2px);
+        color: var(--text-primary);
+    }
+    
+    .input-group-text {
+        background: rgba(249, 115, 22, 0.15);
+        border: 2px solid rgba(249, 115, 22, 0.3);
+        border-left: none;
+        border-radius: 16px 0 0 16px;
+        color: var(--primary-color);
+    }
+    
+    .input-group .form-control {
+        border-right: none;
+        border-radius: 0 16px 16px 0;
+    }
+    
+    .auth-link {
+        color: var(--primary-color);
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .auth-link:hover {
+        color: var(--primary-light);
+        text-decoration: underline;
+    }
+    
+    .auth-card h2 {
+        color: var(--text-primary);
+    }
+    
+    .auth-card .text-muted {
+        color: var(--text-secondary) !important;
+    }
+    
+    .auth-card .form-label {
+        color: var(--text-primary);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container auth-container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="auth-card">
+                <div class="card-body p-5 p-md-6">
+                    <div class="text-center mb-4">
+                        <div class="auth-icon">
+                            <i class="bi bi-box-arrow-in-right text-white" style="font-size: 3rem;"></i>
+                        </div>
+                        <h2 class="mt-4 fw-bold">ورود به حساب کاربری</h2>
+                        <p class="text-muted">به فروشگاه پوشاک خوش آمدید</p>
+                    </div>
+                    
+                    <form method="post" class="auth-form">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">نام کاربری</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input type="text" name="username" class="form-control" placeholder="نام کاربری خود را وارد کنید" required>
+                            </div>
+                            {% if form.username.errors %}
+                                <div class="text-danger small mt-1">{{ form.username.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">رمز عبور</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                <input type="password" name="password" class="form-control" placeholder="رمز عبور خود را وارد کنید" required>
+                            </div>
+                            {% if form.password.errors %}
+                                <div class="text-danger small mt-1">{{ form.password.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+                        
+                        <button type="submit" class="btn btn-primary w-100 btn-lg mb-3 mt-2">
+                            <i class="bi bi-box-arrow-in-left"></i> ورود
+                        </button>
+                        
+                        <div class="text-center">
+                            <p class="text-muted">حساب کاربری ندارید؟ 
+                                <a href="{% url 'register' %}" class="auth-link">ثبت‌نام کنید</a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

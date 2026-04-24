@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+
+{% block title %}سبد خرید - فروشگاه پوشاک{% endblock %}
+
+{% block extra_css %}
+<style>
+    .cart-header {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--card-border);
+        border-radius: 24px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-md);
+    }
+    
+    .cart-header h2 {
+        color: var(--text-primary);
+    }
+    
+    .cart-item {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid var(--card-border);
+        transition: all 0.3s ease;
+    }
+    
+    .cart-item:hover {
+        transform: translateX(-5px);
+        box-shadow: var(--shadow-lg);
+        border-color: rgba(249, 115, 22, 0.5);
+    }
+    
+    .cart-item img {
+        border-radius: 16px;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--card-border);
+    }
+    
+    .cart-item h5 {
+        color: var(--text-primary);
+    }
+    
+    .quantity-input {
+        background: rgba(249, 115, 22, 0.1);
+        border: 2px solid rgba(249, 115, 22, 0.3);
+        border-radius: 12px;
+        padding: 0.5rem;
+        text-align: center;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        color: var(--text-primary);
+    }
+    
+    .quantity-input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.2);
+        background: rgba(249, 115, 22, 0.15);
+    }
+    
+    .btn-outline-danger {
+        border: 2px solid rgba(220, 53, 69, 0.5);
+        color: #dc3545;
+        background: rgba(220, 53, 69, 0.1);
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-outline-danger:hover {
+        background: #dc3545;
+        border-color: #dc3545;
+        color: white;
+        transform: scale(1.05);
+    }
+    
+    .btn-success {
+        background: var(--success-gradient);
+        border: none;
+        border-radius: 50px;
+        padding: 0.8rem 2rem;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+        transition: all 0.3s ease;
+    }
+    
+    .btn-success:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 25px rgba(249, 115, 22, 0.6);
+    }
+    
+    .empty-cart {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--card-border);
+        border-radius: 32px;
+        padding: 4rem 2rem;
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .empty-cart h3 {
+        color: var(--text-primary);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="cart-header text-center">
+        <h2 class="fw-bold mb-2"><i class="bi bi-cart3"></i> سبد خرید</h2>
+        <p class="text-muted mb-0">محصولات انتخابی شما</p>
+    </div>
+    
+    {% if cart.items.all %}
+    <div class="row">
+        <div class="col-md-8">
+            {% for item in cart.items.all %}
+            <div class="cart-item">
+                <div class="row align-items-center">
+                        <div class="col-md-2">
+                            {% if item.product.image %}
+                                <img src="{{ item.product.image.url }}" class="img-fluid rounded" alt="{{ item.product.name }}">
+                            {% else %}
+                                <img src="https://via.placeholder.com/100x100" class="img-fluid rounded" alt="{{ item.product.name }}">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4">
+                            <h5 class="fw-bold">{{ item.product.name }}</h5>
+                            {% if item.size %}<p class="mb-0 text-muted small">سایز: {{ item.size }}</p>{% endif %}
+                            {% if item.color %}<p class="mb-0 text-muted small">رنگ: {{ item.color }}</p>{% endif %}
+                        </div>
+                        <div class="col-md-2">
+                            <p class="mb-0 fw-bold text-muted">{{ item.product.get_final_price|floatformat:0 }} تومان</p>
+                        </div>
+                        <div class="col-md-2">
+                            <form method="post" action="{% url 'shop:update_cart_item' item.id %}" class="d-inline">
+                                {% csrf_token %}
+                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" 
+                                       class="form-control quantity-input" style="width: 70px;" 
+                                       onchange="this.form.submit()">
+                            </form>
+                        </div>
+                        <div class="col-md-2 text-end">
+                            <p class="mb-2 fw-bold price-new" style="font-size: 1.1rem;">{{ item.get_total_price|floatformat:0 }} تومان</p>
+                            <form method="post" action="{% url 'shop:remove_from_cart' item.id %}" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    <i class="bi bi-trash"></i> حذف
+                                </button>
+                            </form>
+                        </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header" style="background: rgba(249, 115, 22, 0.1); border-bottom: 1px solid var(--card-border);">
+                    <h5 class="mb-0" style="color: var(--text-primary);">خلاصه سبد خرید</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span style="color: var(--text-secondary);">تعداد کالا:</span>
+                        <span class="fw-bold" style="color: var(--text-primary);">{{ cart.get_items_count }} عدد</span>
+                    </div>
+                    <hr style="border-color: var(--card-border);">
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="fs-5" style="color: var(--text-primary);">جمع کل:</span>
+                        <span class="fs-4 fw-bold price-new">{{ cart.get_total_price|floatformat:0 }} تومان</span>
+                    </div>
+                    <a href="{% url 'shop:checkout' %}" class="btn btn-success w-100 btn-lg">
+                        <i class="bi bi-credit-card"></i> تسویه حساب
+                    </a>
+                    <a href="{% url 'shop:product_list' %}" class="btn btn-primary w-100 mt-2">
+                        <i class="bi bi-arrow-right"></i> ادامه خرید
+                    </a>
+                </div>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h6 class="fw-bold mb-3" style="color: var(--text-primary);"><i class="bi bi-shield-check"></i> خرید ایمن</h6>
+                    <ul class="list-unstyled small text-muted">
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> پرداخت امن</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> ضمانت اصالت کالا</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> ارسال سریع</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="text-center py-5 empty-cart">
+        <i class="bi bi-cart-x display-1" style="color: var(--primary-color);"></i>
+        <h3 class="mt-4 fw-bold">سبد خرید شما خالی است</h3>
+        <p class="text-muted">برای خرید به صفحه محصولات بروید</p>
+        <a href="{% url 'shop:product_list' %}" class="btn btn-primary btn-lg mt-3">
+            <i class="bi bi-bag-check"></i> مشاهده محصولات
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

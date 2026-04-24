@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %}خانه - فروشگاه پوشاک{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-3">به فروشگاه پوشاک خوش آمدید</h1>
+        <p class="lead mb-4">جدیدترین و با کیفیت‌ترین محصولات پوشاک</p>
+        <a href="{% url 'shop:product_list' %}" class="btn btn-light btn-lg">
+            <i class="bi bi-bag-check"></i> مشاهده محصولات
+        </a>
+    </div>
+</div>
+
+<!-- Categories -->
+{% if categories %}
+<section class="container my-5">
+    <h2 class="text-center mb-4">دسته‌بندی‌ها</h2>
+    <div class="row g-4">
+        {% for category in categories %}
+        <div class="col-md-4">
+            <a href="{% url 'shop:product_list_by_category' category.slug %}" class="text-decoration-none">
+                <div class="category-card">
+                    {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="{{ category.name }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/400x200?text={{ category.name }}" alt="{{ category.name }}">
+                    {% endif %}
+                    <div class="category-overlay">
+                        <h4>{{ category.name }}</h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<!-- Featured Products -->
+{% if featured_products %}
+<section class="container my-5">
+    <h2 class="text-center mb-4">محصولات ویژه</h2>
+    <div class="row g-4">
+        {% for product in featured_products %}
+        <div class="col-md-3 col-sm-6">
+            <div class="card product-card h-100">
+                <div class="position-relative">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" class="card-img-top product-img" alt="{{ product.name }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/300x300?text={{ product.name }}" class="card-img-top product-img" alt="{{ product.name }}">
+                    {% endif %}
+                    {% if product.get_discount_percent %}
+                        <span class="badge-discount">{{ product.get_discount_percent }}% تخفیف</span>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text text-muted small">{{ product.description|truncatewords:10 }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            {% if product.discount_price %}
+                                <span class="price-old">{{ product.price|floatformat:0 }} تومان</span><br>
+                                <span class="price-new">{{ product.discount_price|floatformat:0 }} تومان</span>
+                            {% else %}
+                                <span class="price-new">{{ product.price|floatformat:0 }} تومان</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-0">
+                    <a href="{% url 'shop:product_detail' product.slug %}" class="btn btn-primary w-100">
+                        <i class="bi bi-eye"></i> مشاهده جزئیات
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<!-- Features -->
+<section class="container my-5">
+    <div class="row text-center g-4">
+        <div class="col-md-3">
+            <div class="p-4 h-100 card">
+                <div class="feature-icon">
+                    <i class="bi bi-truck fs-1 text-white"></i>
+                </div>
+                <h5>ارسال سریع</h5>
+                <p class="text-muted">ارسال به سراسر کشور</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="p-4 h-100 card">
+                <div class="feature-icon">
+                    <i class="bi bi-shield-check fs-1 text-white"></i>
+                </div>
+                <h5>ضمانت اصالت</h5>
+                <p class="text-muted">محصولات اصل و با کیفیت</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="p-4 h-100 card">
+                <div class="feature-icon">
+                    <i class="bi bi-arrow-repeat fs-1 text-white"></i>
+                </div>
+                <h5>بازگشت کالا</h5>
+                <p class="text-muted">7 روز ضمانت بازگشت</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="p-4 h-100 card">
+                <div class="feature-icon">
+                    <i class="bi bi-headset fs-1 text-white"></i>
+                </div>
+                <h5>پشتیبانی 24/7</h5>
+                <p class="text-muted">پاسخگویی در تمام ساعات</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

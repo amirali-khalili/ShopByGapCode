@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }} - فروشگاه پوشاک{% endblock %}
+
+{% block extra_css %}
+<style>
+    .product-image-main {
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+        transition: all 0.3s ease;
+        border: 1px solid var(--card-border);
+    }
+    
+    .product-image-main:hover {
+        transform: scale(1.02);
+        box-shadow: var(--shadow-xl);
+    }
+    
+    .product-image-main img {
+        width: 100%;
+        height: auto;
+    }
+    
+    .product-info-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--card-border);
+        border-radius: 24px;
+        padding: 2rem;
+        box-shadow: var(--shadow-md);
+        color: var(--text-primary);
+    }
+    
+    .product-info-card h1,
+    .product-info-card h5 {
+        color: var(--text-primary);
+    }
+    
+    .breadcrumb {
+        background: var(--card-bg);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--card-border);
+        border-radius: 50px;
+        padding: 0.8rem 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .breadcrumb-item {
+        color: var(--text-secondary);
+    }
+    
+    .breadcrumb-item a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .breadcrumb-item a:hover {
+        color: var(--primary-light);
+    }
+    
+    .breadcrumb-item.active {
+        color: var(--text-muted);
+    }
+    
+    .btn-check:checked + .btn-outline-primary {
+        background: var(--primary-gradient);
+        border-color: transparent;
+    }
+    
+    .product-features {
+        background: var(--card-bg);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--card-border);
+        border-radius: 20px;
+        padding: 1.5rem;
+        color: var(--text-primary);
+    }
+    
+    .product-features h6 {
+        color: var(--text-primary);
+    }
+    
+    .product-features ul li {
+        color: var(--text-secondary);
+    }
+    
+    .thumbnail-img {
+        border-radius: 16px;
+        box-shadow: var(--shadow-sm);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: 1px solid var(--card-border);
+    }
+    
+    .thumbnail-img:hover {
+        transform: scale(1.05);
+        box-shadow: var(--shadow-md);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card border-0 product-image-main">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" class="card-img-top rounded" alt="{{ product.name }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/600x600?text={{ product.name }}" class="card-img-top rounded" alt="{{ product.name }}">
+                {% endif %}
+            </div>
+            
+            <!-- Additional Images -->
+            {% if product.image2 or product.image3 %}
+            <div class="row mt-3 g-2">
+                {% if product.image2 %}
+                <div class="col-6">
+                    <img src="{{ product.image2.url }}" class="img-fluid rounded thumbnail-img" alt="{{ product.name }}">
+                </div>
+                {% endif %}
+                {% if product.image3 %}
+                <div class="col-6">
+                    <img src="{{ product.image3.url }}" class="img-fluid rounded thumbnail-img" alt="{{ product.name }}">
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="col-md-6">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'shop:home' %}">خانه</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'shop:product_list_by_category' product.category.slug %}">{{ product.category.name }}</a></li>
+                    <li class="breadcrumb-item active">{{ product.name }}</li>
+                </ol>
+            </nav>
+            
+            <h1 class="mb-3" style="color: var(--text-primary);">{{ product.name }}</h1>
+            
+            <div class="mb-4">
+                {% if product.discount_price %}
+                    <h3 class="price-old d-inline">{{ product.price|floatformat:0 }} تومان</h3>
+                    <h2 class="price-new d-inline ms-3">{{ product.discount_price|floatformat:0 }} تومان</h2>
+                    <span class="badge bg-danger ms-2">{{ product.get_discount_percent }}% تخفیف</span>
+                {% else %}
+                    <h2 class="price-new">{{ product.price|floatformat:0 }} تومان</h2>
+                {% endif %}
+            </div>
+            
+            <div class="mb-4">
+                {% if product.stock > 0 %}
+                    <span class="badge bg-success fs-6"><i class="bi bi-check-circle"></i> موجود در انبار ({{ product.stock }} عدد)</span>
+                {% else %}
+                    <span class="badge bg-danger fs-6"><i class="bi bi-x-circle"></i> ناموجود</span>
+                {% endif %}
+            </div>
+            
+            <div class="mb-4">
+                <h5>توضیحات:</h5>
+                <p class="text-muted">{{ product.description }}</p>
+            </div>
+            
+            {% if product.stock > 0 %}
+            <form method="post" action="{% url 'shop:add_to_cart' product.id %}">
+                {% csrf_token %}
+                
+                <!-- Size Selection -->
+                {% if product.get_sizes_list %}
+                <div class="mb-3">
+                    <label class="form-label fw-bold" style="color: var(--text-primary);">سایز:</label>
+                    <div class="btn-group" role="group">
+                        {% for size in product.get_sizes_list %}
+                        <input type="radio" class="btn-check" name="size" id="size{{ forloop.counter }}" value="{{ size }}" {% if forloop.first %}checked{% endif %}>
+                        <label class="btn btn-outline-primary" for="size{{ forloop.counter }}">{{ size }}</label>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Color Selection -->
+                {% if product.get_colors_list %}
+                <div class="mb-3">
+                    <label class="form-label fw-bold" style="color: var(--text-primary);">رنگ:</label>
+                    <div class="btn-group" role="group">
+                        {% for color in product.get_colors_list %}
+                        <input type="radio" class="btn-check" name="color" id="color{{ forloop.counter }}" value="{{ color }}" {% if forloop.first %}checked{% endif %}>
+                        <label class="btn btn-outline-primary" for="color{{ forloop.counter }}">{{ color }}</label>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Quantity -->
+                <div class="mb-4">
+                    <label class="form-label fw-bold" style="color: var(--text-primary);">تعداد:</label>
+                    <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" class="form-control" style="width: 100px;">
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                    <i class="bi bi-cart-plus"></i> افزودن به سبد خرید
+                </button>
+            </form>
+            {% else %}
+            <button class="btn btn-secondary btn-lg w-100" disabled>
+                <i class="bi bi-x-circle"></i> ناموجود
+            </button>
+            {% endif %}
+            
+            <div class="product-features mt-4">
+                <h6 class="fw-bold mb-3"><i class="bi bi-shield-check"></i> ویژگی‌ها</h6>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><i class="bi bi-check-circle text-success"></i> ضمانت اصالت کالا</li>
+                    <li class="mb-2"><i class="bi bi-check-circle text-success"></i> 7 روز ضمانت بازگشت</li>
+                    <li class="mb-2"><i class="bi bi-check-circle text-success"></i> ارسال سریع</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Related Products -->
+    {% if related_products %}
+    <section class="mt-5">
+        <h3 class="mb-4" style="color: var(--text-primary);">محصولات مرتبط</h3>
+        <div class="row g-4">
+            {% for product in related_products %}
+            <div class="col-md-3 col-sm-6">
+                <div class="card product-card h-100">
+                    <div class="position-relative">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" class="card-img-top product-img" alt="{{ product.name }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/300x300?text={{ product.name }}" class="card-img-top product-img" alt="{{ product.name }}">
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <div>
+                            {% if product.discount_price %}
+                                <span class="price-old">{{ product.price|floatformat:0 }} تومان</span><br>
+                                <span class="price-new">{{ product.discount_price|floatformat:0 }} تومان</span>
+                            {% else %}
+                                <span class="price-new">{{ product.price|floatformat:0 }} تومان</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-footer border-0" style="background: transparent;">
+                        <a href="{% url 'shop:product_detail' product.slug %}" class="btn btn-primary w-100">
+                            <i class="bi bi-eye"></i> مشاهده
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+</div>
+{% endblock %}

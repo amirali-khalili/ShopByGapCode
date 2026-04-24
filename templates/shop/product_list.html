@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+
+{% block title %}محصولات - فروشگاه پوشاک{% endblock %}
+
+{% block extra_css %}
+<style>
+    .filter-sidebar {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--card-border);
+        border-radius: 24px;
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+    }
+    
+    .filter-sidebar .card-header {
+        background: rgba(249, 115, 22, 0.1);
+        border-bottom: 1px solid var(--card-border);
+        border-radius: 24px 24px 0 0 !important;
+        color: var(--text-primary);
+    }
+    
+    .filter-sidebar .card-body {
+        color: var(--text-primary);
+    }
+    
+    .filter-link {
+        color: var(--text-secondary);
+        text-decoration: none;
+        padding: 0.5rem 0;
+        display: block;
+        transition: all 0.3s ease;
+        border-radius: 8px;
+        padding-left: 0.5rem;
+    }
+    
+    .filter-link:hover {
+        color: var(--primary-color);
+        transform: translateX(-5px);
+        background: rgba(249, 115, 22, 0.1);
+    }
+    
+    .filter-link.fw-bold {
+        color: var(--primary-color);
+        background: rgba(249, 115, 22, 0.15);
+    }
+    
+    .products-header {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--card-border);
+        border-radius: 20px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-sm);
+    }
+    
+    .products-header h2 {
+        color: var(--text-primary);
+    }
+    
+    .filter-sidebar h6 {
+        color: var(--text-primary);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3">
+            <div class="card mb-4 filter-sidebar">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="bi bi-funnel"></i> فیلترها</h5>
+                </div>
+                <div class="card-body">
+                    <!-- Categories -->
+                    <h6 class="fw-bold mb-3">دسته‌بندی‌ها</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="{% url 'shop:product_list' %}" class="filter-link {% if not category %}fw-bold{% endif %}">
+                                همه محصولات
+                            </a>
+                        </li>
+                        {% for cat in categories %}
+                        <li class="mb-2">
+                            <a href="{% url 'shop:product_list_by_category' cat.slug %}" class="filter-link {% if category == cat %}fw-bold{% endif %}">
+                                {{ cat.name }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    
+                    <hr style="border-color: var(--card-border);">
+                    
+                    <!-- Price Filter -->
+                    <h6 class="fw-bold mb-3">محدوده قیمت</h6>
+                    <form method="get">
+                        <div class="mb-2">
+                            <input type="number" name="min_price" class="form-control form-control-sm" 
+                                   placeholder="از (تومان)" value="{{ request.GET.min_price }}">
+                        </div>
+                        <div class="mb-2">
+                            <input type="number" name="max_price" class="form-control form-control-sm" 
+                                   placeholder="تا (تومان)" value="{{ request.GET.max_price }}">
+                        </div>
+                        {% if request.GET.q %}
+                            <input type="hidden" name="q" value="{{ request.GET.q }}">
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary btn-sm w-100">اعمال فیلتر</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Products -->
+        <div class="col-md-9">
+            <div class="products-header d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="fw-bold mb-1">
+                        {% if category %}
+                            {{ category.name }}
+                        {% elif query %}
+                            نتایج جستجو برای "{{ query }}"
+                        {% else %}
+                            همه محصولات
+                        {% endif %}
+                    </h2>
+                    <p class="text-muted mb-0">{{ products.count }} محصول یافت شد</p>
+                </div>
+                
+                <!-- Sort -->
+                <div>
+                    <form method="get" class="d-inline">
+                        <select name="sort" class="form-select form-select-sm" onchange="this.form.submit()">
+                            <option value="-created_at" {% if request.GET.sort == '-created_at' %}selected{% endif %}>جدیدترین</option>
+                            <option value="price" {% if request.GET.sort == 'price' %}selected{% endif %}>ارزان‌ترین</option>
+                            <option value="-price" {% if request.GET.sort == '-price' %}selected{% endif %}>گران‌ترین</option>
+                            <option value="name" {% if request.GET.sort == 'name' %}selected{% endif %}>الفبایی</option>
+                        </select>
+                        {% if request.GET.q %}
+                            <input type="hidden" name="q" value="{{ request.GET.q }}">
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+            
+            {% if products %}
+            <div class="row g-4">
+                {% for product in products %}
+                <div class="col-md-4 col-sm-6">
+                    <div class="card product-card h-100">
+                        <div class="position-relative">
+                            {% if product.image %}
+                                <img src="{{ product.image.url }}" class="card-img-top product-img" alt="{{ product.name }}">
+                            {% else %}
+                                <img src="https://via.placeholder.com/300x300?text={{ product.name }}" class="card-img-top product-img" alt="{{ product.name }}">
+                            {% endif %}
+                            {% if product.get_discount_percent %}
+                                <span class="badge-discount">{{ product.get_discount_percent }}% تخفیف</span>
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text text-muted small">{{ product.description|truncatewords:10 }}</p>
+                            <div class="mb-2">
+                                {% if product.discount_price %}
+                                    <span class="price-old">{{ product.price|floatformat:0 }} تومان</span><br>
+                                    <span class="price-new">{{ product.discount_price|floatformat:0 }} تومان</span>
+                                {% else %}
+                                    <span class="price-new">{{ product.price|floatformat:0 }} تومان</span>
+                                {% endif %}
+                            </div>
+                            {% if product.stock > 0 %}
+                                <span class="badge bg-success">موجود</span>
+                            {% else %}
+                                <span class="badge bg-danger">ناموجود</span>
+                            {% endif %}
+                        </div>
+                        <div class="card-footer border-0" style="background: transparent;">
+                            <a href="{% url 'shop:product_detail' product.slug %}" class="btn btn-primary w-100">
+                                <i class="bi bi-eye"></i> مشاهده جزئیات
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="card text-center p-5">
+                <i class="bi bi-info-circle fs-1 d-block mb-3" style="color: var(--primary-color);"></i>
+                <h5 class="fw-bold" style="color: var(--text-primary);">محصولی یافت نشد</h5>
+                <p class="text-muted">متأسفانه محصولی با این مشخصات پیدا نشد.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
