@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% block title %}مقالات - فروشگاه پوشاک{% endblock %}
+
+{% block extra_css %}
+<style>
+    .projects-header {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--card-border);
+        border-radius: 24px;
+        padding: 3rem 2rem;
+        margin-bottom: 3rem;
+        box-shadow: var(--shadow-lg);
+        text-align: center;
+    }
+    
+    .projects-header h1 {
+        color: var(--text-primary);
+        font-weight: 800;
+        margin-bottom: 1rem;
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .projects-header p {
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+    }
+    
+    .project-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--card-border);
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: var(--shadow-md);
+        height: 100%;
+    }
+    
+    .project-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-xl);
+        border-color: var(--primary-color);
+    }
+    
+    .project-image {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        transition: all 0.4s ease;
+    }
+    
+    .project-card:hover .project-image {
+        transform: scale(1.1);
+    }
+    
+    .project-image-wrapper {
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .project-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: var(--primary-gradient);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        box-shadow: var(--shadow-md);
+    }
+    
+    .project-card .card-body {
+        padding: 1.5rem;
+    }
+    
+    .project-card .card-title {
+        color: var(--text-primary);
+        font-weight: 700;
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .project-card .card-text {
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+    
+    .project-date {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .project-date i {
+        color: var(--primary-color);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Header -->
+    <div class="projects-header">
+        <h1><i class="bi bi-briefcase"></i> مقالات</h1>
+        <p>لیست مقالات را مشاهده نمایید</p>
+    </div>
+    
+    <!-- Projects Grid -->
+    {% if projects %}
+    <div class="row g-4">
+        {% for project in projects %}
+        <div class="col-md-4 col-sm-6">
+            <div class="project-card">
+                <div class="project-image-wrapper">
+                    <img src="{{ project.image }}" alt="{{ project.title }}" class="project-image">
+                    <span class="project-badge">{{ project.category }}</span>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ project.title }}</h5>
+                    <p class="card-text">{{ project.description }}</p>
+                    <div class="project-date">
+                        <i class="bi bi-calendar-event"></i>
+                        <span>{{ project.date }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="card text-center p-5">
+        <i class="bi bi-info-circle fs-1 d-block mb-3" style="color: var(--primary-color);"></i>
+        <h5 class="fw-bold" style="color: var(--text-primary);">پروژه‌ای یافت نشد</h5>
+        <p class="text-muted">در حال حاضر پروژه‌ای برای نمایش وجود ندارد.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

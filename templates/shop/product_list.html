@@ -127,7 +127,7 @@
                             همه محصولات
                         {% endif %}
                     </h2>
-                    <p class="text-muted mb-0">{{ products.count }} محصول یافت شد</p>
+                    <p class="text-white mb-0">{{ products.count }} محصول یافت شد</p>
                 </div>
                 
                 <!-- Sort -->
@@ -163,7 +163,7 @@
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">{{ product.name }}</h5>
-                            <p class="card-text text-muted small">{{ product.description|truncatewords:10 }}</p>
+                            <p class="card-text text-white small">{{ product.description|truncatewords:10 }}</p>
                             <div class="mb-2">
                                 {% if product.discount_price %}
                                     <span class="price-old">{{ product.price|floatformat:0 }} تومان</span><br>

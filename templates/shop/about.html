@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+
+{% block title %}درباره ما - فروشگاه پوشاک{% endblock %}
+
+{% block extra_css %}
+<style>
+    .about-header {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--card-border);
+        border-radius: 24px;
+        padding: 3rem 2rem;
+        margin-bottom: 3rem;
+        box-shadow: var(--shadow-lg);
+        text-align: center;
+    }
+    
+    .about-header h1 {
+        color: var(--text-primary);
+        font-weight: 800;
+        margin-bottom: 1rem;
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .about-header p {
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+    
+    .about-section {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--card-border);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow-md);
+    }
+    
+    .about-section h2 {
+        color: var(--text-primary);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .about-section h2 i {
+        color: var(--primary-color);
+    }
+    
+    .about-section p {
+        color: var(--text-secondary);
+        line-height: 1.8;
+        font-size: 1.05rem;
+    }
+    
+    .team-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--card-border);
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: var(--shadow-md);
+        text-align: center;
+        height: 100%;
+    }
+    
+    .team-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-xl);
+        border-color: var(--primary-color);
+    }
+    
+    .team-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin: 2rem auto 1rem;
+        border: 4px solid var(--primary-color);
+        box-shadow: var(--shadow-md);
+        transition: all 0.3s ease;
+    }
+    
+    .team-card:hover .team-image {
+        transform: scale(1.1);
+        border-color: var(--primary-light);
+    }
+    
+    .team-card .card-body {
+        padding: 1.5rem;
+    }
+    
+    .team-card .card-title {
+        color: var(--text-primary);
+        font-weight: 700;
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .team-position {
+        color: var(--primary-color);
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .team-card .card-text {
+        color: var(--text-secondary);
+        line-height: 1.6;
+    }
+    
+    .stats-section {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--card-border);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        box-shadow: var(--shadow-md);
+    }
+    
+    .stat-item {
+        text-align: center;
+        padding: 1.5rem;
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 800;
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Header -->
+    <div class="about-header">
+        <h1><i class="bi bi-info-circle"></i> درباره ما</h1>
+        <p>ما یک تیم متخصص و با تجربه در زمینه پوشاک هستیم که با ارائه بهترین محصولات و خدمات، رضایت شما را جلب می‌کنیم</p>
+    </div>
+    
+    <!-- Stats Section -->
+    <div class="stats-section">
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <div class="stat-item">
+                    <span class="stat-number">10+</span>
+                    <span class="stat-label">سال تجربه</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="stat-item">
+                    <span class="stat-number">5000+</span>
+                    <span class="stat-label">مشتری راضی</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="stat-item">
+                    <span class="stat-number">1000+</span>
+                    <span class="stat-label">محصول</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">برند معتبر</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- About Content -->
+    <div class="about-section">
+        <h2><i class="bi bi-bullseye"></i> ماموریت ما</h2>
+        <p>
+            ماموریت ما ارائه بهترین و با کیفیت‌ترین محصولات پوشاک به مشتریان عزیز است. ما با استفاده از جدیدترین تکنولوژی‌ها و همکاری با بهترین برندهای داخلی و خارجی، تلاش می‌کنیم تا تجربه خرید آنلاین شما را به یک تجربه لذت‌بخش و راحت تبدیل کنیم.
+        </p>
+    </div>
+    
+    <div class="about-section">
+        <h2><i class="bi bi-eye"></i> چشم‌انداز ما</h2>
+        <p>
+            چشم‌انداز ما تبدیل شدن به بزرگ‌ترین و معتبرترین فروشگاه آنلاین پوشاک در کشور است. ما می‌خواهیم با ارائه خدمات بی‌نظیر و محصولات با کیفیت، اولین انتخاب مشتریان برای خرید پوشاک باشیم.
+        </p>
+    </div>
+    
+    <div class="about-section">
+        <h2><i class="bi bi-star"></i> ارزش‌های ما</h2>
+        <p>
+            کیفیت، صداقت، نوآوری و رضایت مشتری از مهم‌ترین ارزش‌های ما هستند. ما معتقدیم که موفقیت ما در گرو رضایت شما عزیزان است و همواره تلاش می‌کنیم تا بهترین خدمات را ارائه دهیم.
+        </p>
+    </div>
+    
+    <!-- Team Section -->
+    <div class="about-section">
+        <h2><i class="bi bi-people"></i> تیم ما</h2>
+        <div class="row g-4 mt-2">
+            {% for member in team_members %}
+            <div class="col-md-4 col-sm-6">
+                <div class="team-card">
+                    <img src="{{ member.image }}" alt="{{ member.name }}" class="team-image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ member.name }}</h5>
+                        <p class="team-position">{{ member.position }}</p>
+                        <p class="card-text">{{ member.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
