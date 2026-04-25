@@ -68,19 +68,19 @@ def about(request):
             {
                 'name': 'علی احمدی',
                 'position': 'مدیر عامل',
-                'image': 'http://main.itols.ir/static/img/160x160/img3.jpg',
+                'image': 'https://shop.t-sho.ir/media/avatars/img3_1_Eoi8DJd.jpg',
                 'description': 'با بیش از 10 سال تجربه در صنعت پوشاک',
             },
             {
                 'name': 'سارا محمدی',
                 'position': 'مدیر فروش',
-                'image': 'http://main.itols.ir/static/img/160x160/img3.jpg',
+                'image': 'https://shop.t-sho.ir/media/avatars/img3_1_Eoi8DJd.jpg',
                 'description': 'متخصص در بازاریابی و فروش آنلاین',
             },
             {
                 'name': 'رضا کریمی',
                 'position': 'مدیر فنی',
-                'image': 'http://main.itols.ir/static/img/160x160/img3.jpg',
+                'image': 'https://shop.t-sho.ir/media/avatars/img3_1_Eoi8DJd.jpg',
                 'description': 'توسعه‌دهنده با تجربه در فناوری‌های وب',
             },
         ]

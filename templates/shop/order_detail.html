@@ -87,14 +87,14 @@
             <i class="bi bi-check-circle-fill text-white" style="font-size: 4rem;"></i>
         </div>
         <h2 class="mt-4 fw-bold">سفارش شما با موفقیت ثبت شد!</h2>
-        <p class="text-muted mb-0">شماره سفارش: <strong style="color: var(--primary-color);">#{{ order.id }}</strong></p>
+        <p class="text-white mb-0">شماره سفارش: <strong style="color: var(--primary-color);">#{{ order.id }}</strong></p>
     </div>
     
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-8 mt-4">
             <div class="card order-card mb-4">
                 <div class="card-header">
-                    <h5 class="mb-0">جزئیات سفارش</h5>
+                    <h5 class="mb-0 ">جزئیات سفارش</h5>
                 </div>
                 <div class="card-body">
                     <div class="row mb-3">
@@ -113,7 +113,7 @@
                     <hr style="border-color: var(--card-border);">
                     
                     <h6 class="fw-bold mb-3">آدرس ارسال:</h6>
-                    <p class="text-muted">
+                    <p class="text-white">
                         {{ order.city }}<br>
                         {{ order.address }}<br>
                         کد پستی: {{ order.postal_code }}
@@ -122,7 +122,7 @@
                     {% if order.notes %}
                     <hr style="border-color: var(--card-border);">
                     <h6 class="fw-bold mb-2">توضیحات:</h6>
-                    <p class="text-muted">{{ order.notes }}</p>
+                    <p class="text-white">{{ order.notes }}</p>
                     {% endif %}
                 </div>
             </div>
@@ -136,30 +136,30 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>محصول</th>
-                                    <th>قیمت واحد</th>
-                                    <th>تعداد</th>
-                                    <th>جمع</th>
+                                    <th class="text-muted">محصول</th>
+                                    <th class="text-muted">قیمت واحد</th>
+                                    <th class="text-muted">تعداد</th>
+                                    <th class="text-muted">جمع</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for item in order.items.all %}
                                 <tr>
-                                    <td>
+                                    <td class="text-muted"> 
                                         {{ item.product.name }}
-                                        {% if item.size %}<br><small class="text-muted">سایز: {{ item.size }}</small>{% endif %}
-                                        {% if item.color %}<br><small class="text-muted">رنگ: {{ item.color }}</small>{% endif %}
-                                    </td>
-                                    <td>{{ item.price|floatformat:0 }} تومان</td>
-                                    <td>{{ item.quantity }}</td>
-                                    <td class="fw-bold">{{ item.get_total_price|floatformat:0 }} تومان</td>
+                                        {% if item.size %}<br><small class="text-white">سایز: {{ item.size }}</small>{% endif %}
+                                        {% if item.color %}<br><small class="text-white">رنگ: {{ item.color }}</small>{% endif %}
+                                    </td class="text-muted">
+                                    <td class="text-muted">{{ item.price|floatformat:0 }} تومان</td>
+                                    <td class="text-muted">{{ item.quantity }}</td>
+                                    <td class="text-muted fw-bold">{{ item.get_total_price|floatformat:0 }} تومان</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="3" class="text-end fw-bold">جمع کل:</td>
-                                    <td class="fw-bold price-new fs-5">{{ order.total_price|floatformat:0 }} تومان</td>
+                                    <td colspan="3" class="text-muted fw-bold">جمع کل:</td>
+                                    <td class="text-muted fw-bold price-new fs-5">{{ order.total_price|floatformat:0 }} تومان</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -173,7 +173,7 @@
                 <div class="card-body text-center">
                     <i class="bi bi-info-circle fs-1 mb-3" style="color: var(--primary-color);"></i>
                     <h5>مراحل بعدی</h5>
-                    <p class="text-muted small">
+                    <p class="text-white small">
                         سفارش شما در حال بررسی است. پس از تأیید، محصولات برای ارسال آماده می‌شوند.
                     </p>
                     <hr style="border-color: var(--card-border);">
@@ -189,7 +189,7 @@
             <div class="card order-card mt-3">
                 <div class="card-body">
                     <h6 class="fw-bold mb-3"><i class="bi bi-headset"></i> پشتیبانی</h6>
-                    <p class="small text-muted">
+                    <p class="small text-white">
                         در صورت داشتن سوال یا مشکل با پشتیبانی تماس بگیرید:
                     </p>
                     <p class="small" style="color: var(--text-secondary);">
