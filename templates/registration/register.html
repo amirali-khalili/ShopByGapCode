@@ -74,6 +74,16 @@
         border-radius: 16px 0 0 16px;
         color: var(--primary-color);
     }
+
+    /* ✅ FIX RTL INPUT GROUP */
+    .auth-form .input-group {
+        direction: ltr;
+    }
+
+    .auth-form .form-control {
+        direction: rtl;
+        text-align: right;
+    }
     
     .input-group .form-control {
         border-right: none;
@@ -127,16 +137,10 @@
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-semibold">نام</label>
                                 <input type="text" name="first_name" class="form-control" placeholder="نام خود را وارد کنید" required>
-                                {% if form.first_name.errors %}
-                                    <div class="text-danger small">{{ form.first_name.errors }}</div>
-                                {% endif %}
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-semibold">نام خانوادگی</label>
                                 <input type="text" name="last_name" class="form-control" placeholder="نام خانوادگی خود را وارد کنید" required>
-                                {% if form.last_name.errors %}
-                                    <div class="text-danger small">{{ form.last_name.errors }}</div>
-                                {% endif %}
                             </div>
                         </div>
                         
@@ -146,9 +150,6 @@
                                 <span class="input-group-text"><i class="bi bi-person"></i></span>
                                 <input type="text" name="username" class="form-control" placeholder="نام کاربری خود را وارد کنید" required>
                             </div>
-                            {% if form.username.errors %}
-                                <div class="text-danger small mt-1">{{ form.username.errors }}</div>
-                            {% endif %}
                         </div>
                         
                         <div class="mb-3">
@@ -157,9 +158,6 @@
                                 <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                                 <input type="email" name="email" class="form-control" placeholder="ایمیل خود را وارد کنید" required>
                             </div>
-                            {% if form.email.errors %}
-                                <div class="text-danger small mt-1">{{ form.email.errors }}</div>
-                            {% endif %}
                         </div>
                         
                         <div class="mb-3">
@@ -168,9 +166,6 @@
                                 <span class="input-group-text"><i class="bi bi-lock"></i></span>
                                 <input type="password" name="password1" class="form-control" placeholder="رمز عبور خود را وارد کنید" required>
                             </div>
-                            {% if form.password1.errors %}
-                                <div class="text-danger small mt-1">{{ form.password1.errors }}</div>
-                            {% endif %}
                         </div>
                         
                         <div class="mb-3">
@@ -179,16 +174,7 @@
                                 <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
                                 <input type="password" name="password2" class="form-control" placeholder="رمز عبور خود را دوباره وارد کنید" required>
                             </div>
-                            {% if form.password2.errors %}
-                                <div class="text-danger small mt-1">{{ form.password2.errors }}</div>
-                            {% endif %}
                         </div>
-                        
-                        {% if form.non_field_errors %}
-                            <div class="alert alert-danger">
-                                {{ form.non_field_errors }}
-                            </div>
-                        {% endif %}
                         
                         <button type="submit" class="btn btn-primary w-100 btn-lg mb-3 mt-2">
                             <i class="bi bi-person-plus"></i> ثبت‌نام

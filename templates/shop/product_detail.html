@@ -4,103 +4,186 @@
 
 {% block extra_css %}
 <style>
-    .product-image-main {
-        border-radius: 24px;
-        overflow: hidden;
-        box-shadow: var(--shadow-lg);
-        transition: all 0.3s ease;
-        border: 1px solid var(--card-border);
-    }
-    
-    .product-image-main:hover {
-        transform: scale(1.02);
-        box-shadow: var(--shadow-xl);
-    }
-    
-    .product-image-main img {
-        width: 100%;
-        height: auto;
-    }
-    
-    .product-info-card {
-        background: var(--card-bg);
-        backdrop-filter: blur(20px);
-        border: 1px solid var(--card-border);
-        border-radius: 24px;
-        padding: 2rem;
-        box-shadow: var(--shadow-md);
-        color: var(--text-primary);
-    }
-    
-    .product-info-card h1,
-    .product-info-card h5 {
-        color: var(--text-primary);
-    }
-    
-    .breadcrumb {
-        background: var(--card-bg);
-        backdrop-filter: blur(10px);
-        border: 1px solid var(--card-border);
-        border-radius: 50px;
-        padding: 0.8rem 1.5rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    .breadcrumb-item {
-        color: var(--text-secondary);
-    }
-    
-    .breadcrumb-item a {
-        color: var(--primary-color);
-        text-decoration: none;
-        font-weight: 500;
-        transition: all 0.3s ease;
-    }
-    
-    .breadcrumb-item a:hover {
-        color: var(--primary-light);
-    }
-    
-    .breadcrumb-item.active {
-        color: var(--text-muted);
-    }
-    
-    .btn-check:checked + .btn-outline-primary {
-        background: var(--primary-gradient);
-        border-color: transparent;
-    }
-    
-    .product-features {
-        background: var(--card-bg);
-        backdrop-filter: blur(10px);
-        border: 1px solid var(--card-border);
-        border-radius: 20px;
-        padding: 1.5rem;
-        color: var(--text-primary);
-    }
-    
-    .product-features h6 {
-        color: var(--text-primary);
-    }
-    
-    .product-features ul li {
-        color: var(--text-secondary);
-    }
-    
-    .thumbnail-img {
-        border-radius: 16px;
-        box-shadow: var(--shadow-sm);
-        transition: all 0.3s ease;
-        cursor: pointer;
-        border: 1px solid var(--card-border);
-    }
-    
-    .thumbnail-img:hover {
-        transform: scale(1.05);
-        box-shadow: var(--shadow-md);
-    }
-</style>
-{% endblock %}
+/* =========================
+   PRODUCT IMAGE
+========================= */
+
+.product-image-main {
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.3s ease;
+    border: 1px solid var(--card-border);
+}
+
+.product-image-main:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-xl);
+}
+
+.product-image-main img {
+    width: 100%;
+    height: auto;
+}
+
+/* =========================
+   PRODUCT INFO CARD
+========================= */
+
+.product-info-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    color: var(--text-primary);
+}
+
+.product-info-card h1,
+.product-info-card h5 {
+    color: var(--text-primary);
+}
+
+/* =========================
+   BREADCRUMB FIX (RTL SAFE)
+========================= */
+
+.breadcrumb {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--card-border);
+    border-radius: 50px;
+    padding: 0.8rem 1.5rem;
+    margin-bottom: 1.5rem;
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.breadcrumb-item {
+    color: var(--text-secondary);
+}
+
+.breadcrumb-item a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.breadcrumb-item a:hover {
+    color: var(--primary-light);
+}
+
+.breadcrumb-item.active {
+    color: var(--text-muted);
+}
+
+/* =========================
+   BUTTON GROUP FIX (IMPORTANT RTL FIX)
+========================= */
+
+.btn-group {
+    direction: ltr;          /* جلوگیری از برعکس شدن ترتیب */
+    display: inline-flex;
+}
+
+.btn-group .btn {
+    direction: rtl;          /* متن فارسی درست */
+    border-radius: 0;
+}
+
+.btn-group .btn:first-child {
+    border-radius: 12px 0 0 12px;
+}
+
+.btn-group .btn:last-child {
+    border-radius: 0 12px 12px 0;
+}
+
+/* انتخاب دکمه */
+.btn-check:checked + .btn-outline-primary {
+    background: var(--primary-gradient);
+    border-color: transparent;
+    color: white;
+}
+
+/* =========================
+   INPUT GROUP FIX (RTL SAFE)
+========================= */
+
+.input-group {
+    direction: ltr;
+}
+
+.input-group .form-control {
+    direction: rtl;
+    text-align: right;
+    border-left: none;
+}
+
+.input-group-text {
+    border-right: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================
+   PRODUCT FEATURES
+========================= */
+
+.product-features {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 1.5rem;
+    color: var(--text-primary);
+}
+
+.product-features h6 {
+    color: var(--text-primary);
+}
+
+.product-features ul li {
+    color: var(--text-secondary);
+}
+
+/* =========================
+   THUMBNAILS
+========================= */
+
+.thumbnail-img {
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid var(--card-border);
+}
+
+.thumbnail-img:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+}
+
+/* =========================
+   GLOBAL RTL SAFETY
+========================= */
+
+body {
+    direction: rtl;
+}
+
+.text-start {
+    text-align: right !important;
+}
+
+.text-end {
+    text-align: left !important;
+}
+</style>{% endblock %}
 
 {% block content %}
 <div class="container my-5">
