@@ -4,6 +4,48 @@
 {% block title %}خانه - فروشگاه پوشاک{% endblock %}
 
 {% block content %}
+
+<style>
+.feature-box {
+    background: #fff;
+    border-radius: 18px;
+    padding: 30px 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+    height: 100%;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.feature-box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+.feature-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0d6efd, #6ea8fe);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 28px;
+}
+
+.feature-box h5 {
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.feature-box p {
+    margin-bottom: 0;
+    font-size: 14px;
+}
+</style>
+
 <!-- Hero Section -->
 <div class="hero-section">
     <div class="container text-center">
@@ -22,15 +64,15 @@
     <div class="row g-4">
         {% for category in categories %}
         <div class="col-lg-3 col-6">
-                <a href="{% url 'shop:product_list_by_category' category.slug %}" class="text-decoration-none">
+            <a href="{% url 'shop:product_list_by_category' category.slug %}" class="text-decoration-none">
                 <div class="category-card">
                     {% if category.image %}
                         <img src="{{ category.image.url }}" alt="{{ category.name }}">
                     {% else %}
                         <img src="{% static 'images/t.png' %}" alt="{{ category.name }}">
                     {% endif %}
-                    <div class="category-overlay ">
-                        <h4  style="color: aliceblue;">{{ category.name }}</h4>
+                    <div class="category-overlay">
+                        <h4 style="color: aliceblue;">{{ category.name }}</h4>
                     </div>
                 </div>
             </a>
@@ -46,8 +88,8 @@
     <h2 class="text-center mb-4">محصولات ویژه</h2>
     <div class="row g-4">
         {% for product in featured_products %}
-<div class="col-lg-3 col-6">
-                <div class="card product-card h-100">
+        <div class="col-lg-3 col-6">
+            <div class="card product-card h-100">
                 <div class="position-relative">
                     {% if product.image %}
                         <img src="{{ product.image.url }}" class="card-img-top product-img" alt="{{ product.name }}">
@@ -58,20 +100,23 @@
                         <span class="badge-discount">{{ product.get_discount_percent }}% تخفیف</span>
                     {% endif %}
                 </div>
+
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text text-muted small">{{ product.description|truncatewords:10 }}</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            {% if product.discount_price %}
-                                <span class="price-old">{{ product.price|floatformat:0 }} تومان</span><br>
-                                <span class="price-new">{{ product.discount_price|floatformat:0 }} تومان</span>
-                            {% else %}
-                                <span class="price-new">{{ product.price|floatformat:0 }} تومان</span>
-                            {% endif %}
-                        </div>
+                    <p class="card-text text-muted small">
+                        {{ product.description|truncatewords:10 }}
+                    </p>
+
+                    <div>
+                        {% if product.discount_price %}
+                            <span class="price-old">{{ product.price|floatformat:0 }} تومان</span><br>
+                            <span class="price-new">{{ product.discount_price|floatformat:0 }} تومان</span>
+                        {% else %}
+                            <span class="price-new">{{ product.price|floatformat:0 }} تومان</span>
+                        {% endif %}
                     </div>
                 </div>
+
                 <div class="card-footer bg-muted border-0">
                     <a href="{% url 'shop:product_detail' product.slug %}" class="btn btn-primary w-100">
                         <i class="bi bi-eye"></i> مشاهده جزئیات
@@ -87,42 +132,48 @@
 <!-- Features -->
 <section class="container my-5">
     <div class="row text-center g-4">
+
         <div class="col-md-3">
-            <div class="p-4 h-100 card">
+            <div class="feature-box">
                 <div class="feature-icon">
-                    <i class="bi bi-truck fs-1 text-primary"></i>
+                    <i class="bi bi-truck"></i>
                 </div>
                 <h5>ارسال سریع</h5>
                 <p class="text-muted">ارسال به سراسر کشور</p>
             </div>
         </div>
+
         <div class="col-md-3">
-            <div class="p-4 h-100 card">
+            <div class="feature-box">
                 <div class="feature-icon">
-                    <i class="bi bi-shield-check fs-1 text-primary"></i>
+                    <i class="bi bi-shield-check"></i>
                 </div>
                 <h5>ضمانت اصالت</h5>
                 <p class="text-muted">محصولات اصل و با کیفیت</p>
             </div>
         </div>
+
         <div class="col-md-3">
-            <div class="p-4 h-100 card">
+            <div class="feature-box">
                 <div class="feature-icon">
-                    <i class="bi bi-arrow-repeat fs-1 text-primary"></i>
+                    <i class="bi bi-arrow-repeat"></i>
                 </div>
                 <h5>بازگشت کالا</h5>
                 <p class="text-muted">7 روز ضمانت بازگشت</p>
             </div>
         </div>
+
         <div class="col-md-3">
-            <div class="p-4 h-100 card">
+            <div class="feature-box">
                 <div class="feature-icon">
-                    <i class="bi bi-headset fs-1 text-primary"></i>
+                    <i class="bi bi-headset"></i>
                 </div>
                 <h5>پشتیبانی 24/7</h5>
                 <p class="text-muted">پاسخگویی در تمام ساعات</p>
             </div>
         </div>
+
     </div>
 </section>
+
 {% endblock %}
