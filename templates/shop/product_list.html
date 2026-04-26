@@ -297,6 +297,26 @@
 .btn-outline-primary:hover {
     color: #ffffff !important;
 }
+.btn-glow {
+    background: linear-gradient(135deg, #0d6efd, #4dabf7);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 18px rgba(13,110,253,0.25);
+}
+
+.btn-glow i {
+    font-size: 18px;
+}
+
+.btn-glow:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(13,110,253,0.35);
+    background: linear-gradient(135deg, #0b5ed7, #339af0);
+}
 </style>
 {% endblock %}
 
@@ -425,9 +445,10 @@
 {% endif %}
                         </div>
                         <div class="card-footer border-0" style="background: transparent;">
-                            <a href="{% url 'shop:product_detail' product.slug %}" class="btn btn-outline-primary btn-sm">
-                                <i class="bi bi-eye"></i> مشاهده جزئیات
-                            </a>
+               <a href="{% url 'shop:product_detail' product.slug %}" class="btn btn-glow w-100 d-flex align-items-center justify-content-center gap-2">
+    <i class="bi bi-eye"></i>
+    <span>مشاهده جزئیات</span>
+</a>
                         </div>
                     </div>
                 </div>
