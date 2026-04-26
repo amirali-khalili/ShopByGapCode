@@ -29,8 +29,8 @@
                     {% else %}
                         <img src="{% static 'images/t.png' %}" alt="{{ category.name }}">
                     {% endif %}
-                    <div class="category-overlay">
-                        <h4>{{ category.name }}</h4>
+                    <div class="category-overlay ">
+                        <h4  style="color: aliceblue;">{{ category.name }}</h4>
                     </div>
                 </div>
             </a>
@@ -60,7 +60,7 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text text-white small">{{ product.description|truncatewords:10 }}</p>
+                    <p class="card-text text-muted small">{{ product.description|truncatewords:10 }}</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             {% if product.discount_price %}
@@ -90,37 +90,37 @@
         <div class="col-md-3">
             <div class="p-4 h-100 card">
                 <div class="feature-icon">
-                    <i class="bi bi-truck fs-1 text-white"></i>
+                    <i class="bi bi-truck fs-1 text-primary"></i>
                 </div>
-                <h5 class="text-white">ارسال سریع</h5>
-                <p class="text-white">ارسال به سراسر کشور</p>
+                <h5>ارسال سریع</h5>
+                <p class="text-muted">ارسال به سراسر کشور</p>
             </div>
         </div>
         <div class="col-md-3">
             <div class="p-4 h-100 card">
                 <div class="feature-icon">
-                    <i class="bi bi-shield-check fs-1 text-white"></i>
+                    <i class="bi bi-shield-check fs-1 text-primary"></i>
                 </div>
-                <h5 class="text-white">ضمانت اصالت</h5>
-                <p class="text-white">محصولات اصل و با کیفیت</p>
+                <h5>ضمانت اصالت</h5>
+                <p class="text-muted">محصولات اصل و با کیفیت</p>
             </div>
         </div>
         <div class="col-md-3">
             <div class="p-4 h-100 card">
                 <div class="feature-icon">
-                    <i class="bi bi-arrow-repeat fs-1 text-white"></i>
+                    <i class="bi bi-arrow-repeat fs-1 text-primary"></i>
                 </div>
-                <h5 class="text-white">بازگشت کالا</h5>
-                <p class="text-white">7 روز ضمانت بازگشت</p>
+                <h5>بازگشت کالا</h5>
+                <p class="text-muted">7 روز ضمانت بازگشت</p>
             </div>
         </div>
         <div class="col-md-3">
             <div class="p-4 h-100 card">
                 <div class="feature-icon">
-                    <i class="bi bi-headset fs-1 text-white"></i>
+                    <i class="bi bi-headset fs-1 text-primary"></i>
                 </div>
-                <h5 class="text-white">پشتیبانی 24/7</h5>
-                <p class="text-white">پاسخگویی در تمام ساعات</p>
+                <h5>پشتیبانی 24/7</h5>
+                <p class="text-muted">پاسخگویی در تمام ساعات</p>
             </div>
         </div>
     </div>

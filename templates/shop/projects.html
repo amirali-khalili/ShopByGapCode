@@ -1,148 +1,251 @@
 {% extends 'base.html' %}
 
-{% block title %}مقالات - فروشگاه پوشاک{% endblock %}
+{% block title %}مقالات و وبلاگ - فروشگاه پوشاک{% endblock %}
 
 {% block extra_css %}
 <style>
-    .projects-header {
-        background: var(--card-bg);
-        backdrop-filter: blur(20px);
-        border: 1px solid var(--card-border);
-        border-radius: 24px;
-        padding: 3rem 2rem;
-        margin-bottom: 3rem;
-        box-shadow: var(--shadow-lg);
-        text-align: center;
+
+    /* Container spacing (جلوگیری از بزرگ شدن فوتر) */
+    .container.my-5 {
+        margin-top: 2rem !important;
+        margin-bottom: 2rem !important;
     }
-    
-    .projects-header h1 {
+
+    /* Hero */
+    .blog-hero {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 24px;
+
+        padding: 3rem 2rem;
+        margin-bottom: 2rem;
+
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .blog-hero h1 {
         color: var(--text-primary);
         font-weight: 800;
-        margin-bottom: 1rem;
-        background: var(--primary-gradient);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        font-size: 2.2rem;
     }
-    
-    .projects-header p {
+
+    .blog-hero p {
         color: var(--text-secondary);
-        font-size: 1.1rem;
+        font-size: 1rem;
+        max-width: 600px;
+        margin: 0 auto;
     }
-    
-    .project-card {
-        background: var(--card-bg);
+
+    .blog-hero-icon {
+        font-size: 3rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+    /* Article Card - GLASS STYLE */
+    .article-card {
+        background: rgba(255, 255, 255, 0.08);
         backdrop-filter: blur(20px);
-        border: 1px solid var(--card-border);
+        -webkit-backdrop-filter: blur(20px);
+
+        border: 1px solid rgba(255, 255, 255, 0.15);
         border-radius: 20px;
+
         overflow: hidden;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: var(--shadow-md);
-        height: 100%;
+        transition: all 0.3s ease;
+
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+
+        height: auto;
+        display: flex;
+        flex-direction: column;
     }
-    
-    .project-card:hover {
-        transform: translateY(-10px);
-        box-shadow: var(--shadow-xl);
-        border-color: var(--primary-color);
+
+    .article-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        border-color: rgba(255, 255, 255, 0.3);
     }
-    
-    .project-image {
-        width: 100%;
-        height: 250px;
-        object-fit: cover;
-        transition: all 0.4s ease;
-    }
-    
-    .project-card:hover .project-image {
-        transform: scale(1.1);
-    }
-    
-    .project-image-wrapper {
-        overflow: hidden;
+
+    /* Image */
+    .article-image-wrapper {
+        height: 200px;
         position: relative;
+        overflow: hidden;
     }
-    
-    .project-badge {
+
+    .article-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Category badge */
+    .article-category {
         position: absolute;
-        top: 1rem;
-        right: 1rem;
-        background: var(--primary-gradient);
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 50px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        box-shadow: var(--shadow-md);
+        top: 10px;
+        right: 10px;
+
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #fff;
+
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
     }
-    
-    .project-card .card-body {
+
+    /* Body */
+    .card-body {
         padding: 1.5rem;
     }
-    
-    .project-card .card-title {
-        color: var(--text-primary);
+
+    .card-title {
         font-weight: 700;
-        font-size: 1.3rem;
+        color: var(--text-primary);
+        font-size: 1.2rem;
         margin-bottom: 0.8rem;
     }
-    
-    .project-card .card-text {
+
+    .card-text {
         color: var(--text-secondary);
+        font-size: 0.95rem;
         line-height: 1.6;
         margin-bottom: 1rem;
     }
-    
-    .project-date {
-        color: var(--text-muted);
-        font-size: 0.9rem;
+
+    /* Meta */
+    .article-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        padding-top: 0.8rem;
+    }
+
+    .article-date {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 5px;
     }
-    
-    .project-date i {
+
+    .article-read-more {
         color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: 0.3s;
     }
+
+    .article-read-more:hover {
+        color: #fff;
+    }
+
+    /* Empty state */
+    .empty-state {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(20px);
+
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 20px;
+
+        padding: 3rem 2rem;
+        text-align: center;
+
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .empty-state-icon {
+        font-size: 3rem;
+        color: var(--primary-color);
+        opacity: 0.5;
+        margin-bottom: 1rem;
+    }
+
+    .empty-state h5 {
+        color: var(--text-primary);
+        font-weight: 700;
+    }
+
+    .empty-state p {
+        color: var(--text-secondary);
+    }
+
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="container my-5">
-    <!-- Header -->
-    <div class="projects-header">
-        <h1><i class="bi bi-briefcase"></i> مقالات</h1>
-        <p>لیست مقالات را مشاهده نمایید</p>
+
+    <!-- Hero -->
+    <div class="blog-hero">
+        <i class="bi bi-newspaper blog-hero-icon"></i>
+        <h1>مقالات و وبلاگ</h1>
+        <p>آخرین مطالب و آموزش‌های کاربردی در دنیای مد و پوشاک</p>
     </div>
-    
-    <!-- Projects Grid -->
+
+    <!-- Articles -->
     {% if projects %}
     <div class="row g-4">
+
         {% for project in projects %}
-        <div class="col-md-4 col-sm-6">
-            <div class="project-card">
-                <div class="project-image-wrapper">
-                    <img src="{{ project.image }}" alt="{{ project.title }}" class="project-image">
-                    <span class="project-badge">{{ project.category }}</span>
+        <div class="col-lg-4 col-md-6">
+
+            <div class="article-card">
+
+                <div class="article-image-wrapper">
+                    <img src="{{ project.image }}" class="article-image">
+                    <span class="article-category">{{ project.category }}</span>
                 </div>
+
                 <div class="card-body">
-                    <h5 class="card-title">{{ project.title }}</h5>
-                    <p class="card-text">{{ project.description }}</p>
-                    <div class="project-date">
-                        <i class="bi bi-calendar-event"></i>
-                        <span>{{ project.date }}</span>
+
+                    <div class="card-title">{{ project.title }}</div>
+
+                    <div class="card-text">
+                        {{ project.description }}
                     </div>
+
+                    <div class="article-meta">
+
+                        <div class="article-date">
+                            <i class="bi bi-calendar3"></i>
+                            {{ project.date }}
+                        </div>
+
+                        <a href="#" class="article-read-more">
+                            ادامه →
+                        </a>
+
+                    </div>
+
                 </div>
+
             </div>
+
         </div>
         {% endfor %}
+
     </div>
+
     {% else %}
-    <div class="card text-center p-5">
-        <i class="bi bi-info-circle fs-1 d-block mb-3" style="color: var(--primary-color);"></i>
-        <h5 class="fw-bold" style="color: var(--text-primary);">پروژه‌ای یافت نشد</h5>
-        <p class="text-muted">در حال حاضر پروژه‌ای برای نمایش وجود ندارد.</p>
+
+    <div class="empty-state">
+        <i class="bi bi-journal-x empty-state-icon"></i>
+        <h5>مقاله‌ای یافت نشد</h5>
+        <p>در حال حاضر مقاله‌ای برای نمایش وجود ندارد</p>
     </div>
+
     {% endif %}
+
 </div>
 {% endblock %}

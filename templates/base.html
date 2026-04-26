@@ -25,38 +25,38 @@
     font-family: 'Yekan', sans-serif !important;
 }
         :root {
-            /* Orange/Amber Theme - Dark Mode Only */
-            --primary-color: #f97316;
-            --primary-dark: #ea580c;
-            --primary-light: #fb923c;
-            --secondary-color: #fb923c;
-            --accent-color: #fbbf24;
+            /* Navy Blue/White Theme */
+            --primary-color: #1e3a8a;
+            --primary-dark: #1e40af;
+            --primary-light: #3b82f6;
+            --secondary-color: #3b82f6;
+            --accent-color: #60a5fa;
             
-            --primary-gradient: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-            --secondary-gradient: linear-gradient(135deg, #fb923c 0%, #fbbf24 100%);
-            --success-gradient: linear-gradient(135deg, #f97316 0%, #fbbf24 100%);
+            --primary-gradient: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            --secondary-gradient: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            --success-gradient: linear-gradient(135deg, #1e3a8a 0%, #60a5fa 100%);
             
-            /* Dark Mode Colors */
-            --bg-primary: #1a1a1a;
-            --bg-secondary: #2d2d2d;
-            --bg-gradient: linear-gradient(135deg, #1a1a1a 0%, #2d1810 50%, #3d2415 100%);
+            /* Light Mode Colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-gradient: linear-gradient(135deg, #1e3a8a 0%, #f1f5f9 50%, #e2e8f0 100%);
             
-            --text-primary: #f3f4f6;
-            --text-secondary: #d1d5db;
-            --text-muted: #9ca3af;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
             
-            --glass-bg: rgba(0, 0, 0, 0.3);
-            --glass-border: rgba(249, 115, 22, 0.3);
-            --card-bg: rgba(45, 45, 45, 0.95);
-            --card-border: rgba(249, 115, 22, 0.3);
+            --glass-bg: rgba(30, 58, 138, 0.1);
+            --glass-border: rgba(30, 58, 138, 0.3);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --card-border: rgba(30, 58, 138, 0.3);
             
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
-            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-            --shadow-xl: 0 12px 48px rgba(0, 0, 0, 0.6);
+            --shadow-sm: 0 2px 8px rgba(30, 58, 138, 0.1);
+            --shadow-md: 0 4px 16px rgba(30, 58, 138, 0.15);
+            --shadow-lg: 0 8px 32px rgba(30, 58, 138, 0.2);
+            --shadow-xl: 0 12px 48px rgba(30, 58, 138, 0.25);
             
-            --navbar-bg: rgba(0, 0, 0, 0.5);
-            --navbar-text: #ffffff;
+            --navbar-bg: rgba(255, 255, 255, 0.7);
+            --navbar-text: #1e293b;
         }
         
         body {
@@ -75,9 +75,9 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(249, 115, 22, 0.15), transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(251, 146, 60, 0.15), transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(251, 191, 36, 0.15), transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(30, 58, 138, 0.15), transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.15), transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(96, 165, 250, 0.15), transparent 50%);
             pointer-events: none;
             z-index: 0;
         }
@@ -92,8 +92,8 @@
             background: var(--navbar-bg) !important;
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 1px solid rgba(249, 115, 22, 0.3);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(30, 58, 138, 0.3);
+            box-shadow: 0 8px 32px rgba(30, 58, 138, 0.1);
             padding: 1rem 0;
         }
         
@@ -101,12 +101,12 @@
             font-weight: 800;
             font-size: 1.5rem;
             color: var(--navbar-text) !important;
-            text-shadow: 0 2px 10px rgba(249, 115, 22, 0.5);
+            text-shadow: 0 2px 10px rgba(30, 58, 138, 0.5);
         }
         
         .navbar-brand:hover {
             transform: scale(1.05);
-            text-shadow: 0 4px 20px rgba(249, 115, 22, 0.8);
+            text-shadow: 0 4px 20px rgba(30, 58, 138, 0.8);
         }
         
         .nav-link {
@@ -119,7 +119,7 @@
         }
         
         .nav-link:hover {
-            background: rgba(249, 115, 22, 0.2);
+            background: rgba(30, 58, 138, 0.2);
             color: var(--navbar-text) !important;
             transform: translateY(-2px);
         }
@@ -142,8 +142,8 @@
         
         /* Modern Search Bar */
         .form-control {
-            background: rgba(249, 115, 22, 0.1);
-            border: 1px solid rgba(249, 115, 22, 0.3);
+            background: rgba(30, 58, 138, 0.1);
+            border: 1px solid rgba(30, 58, 138, 0.3);
             backdrop-filter: blur(10px);
             color: var(--text-primary);
             border-radius: 50px;
@@ -156,16 +156,16 @@
         }
         
         .form-control:focus {
-            background: rgba(249, 115, 22, 0.15);
+            background: rgba(30, 58, 138, 0.15);
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.2);
+            box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.2);
             color: var(--text-primary);
             transform: scale(1.02);
         }
         
         .form-select {
-            background: rgba(249, 115, 22, 0.1);
-            border: 1px solid rgba(249, 115, 22, 0.3);
+            background: rgba(30, 58, 138, 0.1);
+            border: 1px solid rgba(30, 58, 138, 0.3);
             backdrop-filter: blur(10px);
             color: var(--text-primary);
             border-radius: 12px;
@@ -174,9 +174,9 @@
         }
         
         .form-select:focus {
-            background: rgba(249, 115, 22, 0.15);
+            background: rgba(30, 58, 138, 0.15);
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.2);
+            box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.2);
             color: var(--text-primary);
         }
         
@@ -204,27 +204,27 @@
         }
         
         .dropdown-item:hover {
-            background: rgba(249, 115, 22, 0.2);
+            background: rgba(30, 58, 138, 0.2);
             color: var(--text-primary);
             transform: translateX(-5px);
         }
         
         /* Buttons */
         .btn-primary {
-            background: var(--primary-gradient);
-            border: none;
+            background: white;
+            border: 2px solid var(--primary-color);
             border-radius: 16px;
             padding: 0.8rem 2rem;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 24px rgba(249, 115, 22, 0.4);
-            color: white;
+            box-shadow: 0 8px 24px rgba(30, 58, 138, 0.4);
+            color: #1e3a8a;
         }
         
         .btn-primary:hover {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+            background: var(--primary-color); color: white;
             transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(249, 115, 22, 0.5);
+            box-shadow: 0 12px 40px rgba(30, 58, 138, 0.5);
         }
         
         .btn-primary:active {
@@ -244,15 +244,15 @@
         .btn-outline-primary:hover {
             background: var(--primary-color);
             border-color: var(--primary-color);
-            color: #fff;
+            color: #1e3a8a;
             transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(249, 115, 22, 0.4);
+            box-shadow: 0 8px 24px rgba(30, 58, 138, 0.4);
         }
         
         .btn-light {
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: #fff;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid rgba(30, 58, 138, 0.3);
+            color: #1e3a8a;
             border-radius: 16px;
             padding: 0.8rem 2rem;
             font-weight: 600;
@@ -260,9 +260,10 @@
         }
         
         .btn-light:hover {
+            background: rgba(255, 255, 255, 1);
             background: rgba(255, 255, 255, 0.2);
             border-color: rgba(255, 255, 255, 0.5);
-            color: #fff;
+            color: #1e3a8a;
             transform: translateY(-3px);
         }
         
@@ -280,7 +281,7 @@
         .card:hover {
             transform: translateY(-10px);
             box-shadow: var(--shadow-xl);
-            border-color: rgba(249, 115, 22, 0.5);
+            border-color: rgba(30, 58, 138, 0.5);
         }
         
         .card-title {
@@ -312,7 +313,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);
+            background: linear-gradient(to top, rgba(30, 58, 138, 0.8) 0%, transparent 50%);
             opacity: 0;
             transition: all 0.3s ease;
         }
@@ -323,12 +324,12 @@
         
         .product-badge {
             background: var(--secondary-gradient);
-            color: white;
+            color: #1e3a8a;
             padding: 0.4rem 1rem;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 600;
-            box-shadow: 0 4px 12px rgba(251, 146, 60, 0.4);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
         
         .badge-discount {
@@ -336,12 +337,12 @@
             top: 1rem;
             right: 1rem;
             background: var(--secondary-gradient);
-            color: white;
+            color: #1e3a8a;
             padding: 0.5rem 1rem;
             border-radius: 20px;
             font-weight: 700;
             z-index: 10;
-            box-shadow: 0 4px 12px rgba(251, 146, 60, 0.5);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
         }
         
         .product-actions {
@@ -382,7 +383,7 @@
         
         .discount-badge {
             background: var(--secondary-gradient);
-            color: white;
+            color: #1e3a8a;
             padding: 0.3rem 0.8rem;
             border-radius: 12px;
             font-size: 0.9rem;
@@ -405,7 +406,7 @@
         .category-card:hover {
             transform: translateY(-10px);
             box-shadow: var(--shadow-xl);
-            border-color: rgba(249, 115, 22, 0.5);
+            border-color: rgba(30, 58, 138, 0.5);
         }
         
         .category-card img {
@@ -430,28 +431,28 @@
         }
         
         .category-overlay h4 {
-            color: #fff;
+            color: #1e3a8a;
             font-weight: 700;
             margin: 0;
             text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
         
         .category-card:hover .category-overlay {
-            background: linear-gradient(to top, rgba(249, 115, 22, 0.9) 0%, rgba(249, 115, 22, 0.5) 50%, transparent 100%);
+            background: linear-gradient(to top, rgba(30, 58, 138, 0.9) 0%, rgba(30, 58, 138, 0.5) 50%, transparent 100%);
         }
         
         .category-icon {
             width: 80px;
             height: 80px;
             margin: 0 auto 1rem;
-            background: var(--primary-gradient);
+            background: white; border: 3px solid var(--primary-color);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2rem;
-            color: white;
-            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.4);
+            color: #1e3a8a;
+            box-shadow: 0 10px 30px rgba(30, 58, 138, 0.4);
             transition: all 0.3s ease;
         }
         
@@ -463,15 +464,15 @@
         .hero-section {
             padding: 5rem 0;
             text-align: center;
-            background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(234, 88, 12, 0.1) 100%);
-            border-radius: 30px;
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border-radius: 0px;
             margin: 2rem 0;
             backdrop-filter: blur(10px);
         }
         
         .hero-section h1 {
             color: var(--text-primary);
-            text-shadow: 0 2px 20px rgba(249, 115, 22, 0.3);
+            text-shadow: 0 2px 20px rgba(30, 58, 138, 0.3);
         }
         
         .hero-section p {
@@ -483,23 +484,25 @@
             width: 80px;
             height: 80px;
             margin: 0 auto 1rem;
-            background: var(--primary-gradient);
+            background: white; border: 3px solid var(--primary-color);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.4);
+            box-shadow: 0 10px 30px rgba(30, 58, 138, 0.4);
         }
         
-        /* Footer */
-        footer {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            color: white;
-            padding: 3rem 0 1rem;
-            margin-top: 5rem;
-            border-top: 1px solid rgba(249, 115, 22, 0.3);
-        }
+/* Footer - Glassy Style */
+footer {
+    background: rgba(0, 54, 172, 0); /* شفافیت بیشتر */
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    color: #ffffff; /* متن روشن برای کنتراست بهتر */
+    padding: 3rem 0 1rem;
+    margin-top: 5rem;
+    border-top: 1px solid rgba(53, 255, 34, 0.2); /* خطوط ملایم */
+    border-radius: 12px; /* گوشه‌های کمی گرد برای حس شیشه‌ای */
+}
         
         footer h5 {
             font-weight: 700;
@@ -540,7 +543,7 @@
         
         /* Badge */
         .badge {
-            background: var(--primary-gradient);
+            background: white; border: 3px solid var(--primary-color);
             padding: 0.5rem 1rem;
             border-radius: 12px;
             font-weight: 600;
@@ -552,7 +555,7 @@
             top: -5px;
             right: -8px;
             background: var(--secondary-gradient);
-            color: white;
+            color: #1e3a8a;
             border-radius: 50%;
             width: 24px;
             height: 24px;
@@ -561,7 +564,7 @@
             justify-content: center;
             font-size: 0.75rem;
             font-weight: 700;
-            box-shadow: 0 4px 12px rgba(251, 146, 60, 0.5);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
             animation: pulse 2s infinite;
         }
         
@@ -599,12 +602,12 @@
         
         /* Navbar Toggler for Dark Mode */
         .navbar-toggler {
-            border-color: rgba(249, 115, 22, 0.5);
+            border-color: rgba(30, 58, 138, 0.5);
         }
         
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28249, 115, 22, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
+    .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%282, 6, 23, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
         
         {% block extra_css %}{% endblock %}
     </style>
@@ -628,10 +631,10 @@
                         <a class="nav-link" href="{% url 'shop:product_list' %}">محصولات</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'shop:about' %}">درباره ما</a>
+                        <a class="nav-link" href="{% url 'shop:contact' %}">تماس با ما</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'shop:contact' %}">تماس با ما</a>
+                        <a class="nav-link" href="{% url 'shop:about' %}">درباره ما</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'shop:projects' %}">مقالات</a>
@@ -710,28 +713,28 @@
             <div class="row">
                 <div class="col-md-4 mb-3">
                     <h5><i class="bi bi-shop"></i> فروشگاه پوشاک</h5>
-                    <p class="text-white-50">بهترین و با کیفیت‌ترین پوشاک را از ما بخواهید</p>
+                    <p class="text-dark">بهترین و با کیفیت‌ترین پوشاک را از ما بخواهید</p>
                 </div>
                 <div class="col-md-4 mb-3">
                     <h5>لینک‌های مفید</h5>
                     <ul class="list-unstyled">
-                        <li><a href="{% url 'shop:home' %}" class="text-white-50 text-decoration-none">خانه</a></li>
-                        <li><a href="{% url 'shop:product_list' %}" class="text-white-50 text-decoration-none">محصولات</a></li>
-                        <li><a href="{% url 'shop:projects' %}" class="text-white-50 text-decoration-none">پروژه‌ها</a></li>
-                        <li><a href="{% url 'shop:about' %}" class="text-white-50 text-decoration-none">درباره ما</a></li>
-                        <li><a href="{% url 'shop:contact' %}" class="text-white-50 text-decoration-none">تماس با ما</a></li>
+                        <li><a href="{% url 'shop:home' %}" class="text-dark text-decoration-none">خانه</a></li>
+                        <li><a href="{% url 'shop:product_list' %}" class="text-dark text-decoration-none">محصولات</a></li>
+                        <li><a href="{% url 'shop:projects' %}" class="text-dark text-decoration-none">مقالات</a></li>
+                        <li><a href="{% url 'shop:about' %}" class="text-dark text-decoration-none">درباره ما</a></li>
+                        <li><a href="{% url 'shop:contact' %}" class="text-dark text-decoration-none">تماس با ما</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-3">
                     <h5>تماس با ما</h5>
-                    <p class="text-white-50">
+                    <p class="text-dark">
                         <i class="bi bi-telephone"></i> 021-12345678<br>
                         <i class="bi bi-envelope"></i> info@shop.com
                     </p>
                 </div>
             </div>
-            <hr class="bg-white">
-            <div class="text-center text-white-50">
+            <hr class="bg-secondary">
+            <div class="text-center text-dark">
                 <p>&copy; ساخته شده توسط امیرعلی خلیلی</p>
             </div>
         </div>

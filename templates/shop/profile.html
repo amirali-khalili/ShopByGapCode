@@ -23,7 +23,7 @@
         width: 150px;
         height: 150px;
         border-radius: 50%;
-        border: 5px solid rgba(249, 115, 22, 0.3);
+        border: 5px solid rgba(30, 58, 138, 0.3);
         box-shadow: var(--shadow-md);
         object-fit: cover;
     }
@@ -38,7 +38,7 @@
     }
     
     .profile-card .card-header {
-        background: rgba(249, 115, 22, 0.1);
+        background: rgba(30, 58, 138, 0.1);
         border-bottom: 1px solid var(--card-border);
         color: var(--text-primary);
     }
@@ -62,7 +62,7 @@
     }
     
     .table thead {
-        background: rgba(249, 115, 22, 0.1);
+        background: rgba(30, 58, 138, 0.1);
         color: var(--text-primary);
     }
     
@@ -72,7 +72,7 @@
     }
     
     .table tbody tr:hover {
-        background: rgba(249, 115, 22, 0.05);
+        background: rgba(30, 58, 138, 0.05);
         transform: translateX(-5px);
     }
     
@@ -88,7 +88,7 @@
 <div class="container my-5">
     <div class="profile-header">
         <h2 class="fw-bold mb-2 mt-5"><i class="bi bi-person-circle"></i> پروفایل کاربری</h2>
-        <p class="text-white mb-4">مدیریت اطلاعات و سفارش‌های شما</p>
+        <p class="text-dark mb-4">مدیریت اطلاعات و سفارش‌های شما</p>
     </div>
     
     <div class="row">
@@ -99,11 +99,11 @@
                         <img src="{{ user.profile.avatar.url }}" class="profile-avatar mb-3" alt="Avatar">
                     {% else %}
                         <div class="profile-avatar mx-auto mb-3 d-flex align-items-center justify-content-center" style="background: var(--primary-gradient);">
-                            <i class="bi bi-person-circle text-white" style="font-size: 80px;"></i>
+                            <i class="bi bi-person-circle text-dark" style="font-size: 80px;"></i>
                         </div>
                     {% endif %}
                     <h4 class="fw-bold">{{ user.get_full_name|default:user.username }}</h4>
-                    <p class="text-white">{{ user.email }}</p>
+                    <p class="text-dark">{{ user.email }}</p>
                     <hr style="border-color: var(--card-border);">
                     <p class="mb-1"><strong>نام کاربری:</strong> {{ user.username }}</p>
                     <p class="mb-1"><strong>تاریخ عضویت:</strong> {{ user.date_joined|date:"Y/m/d" }}</p>

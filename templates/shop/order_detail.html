@@ -27,7 +27,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 10px 40px rgba(249, 115, 22, 0.4);
+        box-shadow: 0 10px 40px rgba(30, 58, 138, 0.4);
         animation: scaleIn 0.5s ease;
     }
     
@@ -46,7 +46,7 @@
     }
     
     .order-card .card-header {
-        background: rgba(249, 115, 22, 0.1);
+        background: rgba(30, 58, 138, 0.1);
         border-bottom: 1px solid var(--card-border);
         color: var(--text-primary);
     }
@@ -65,7 +65,7 @@
     }
     
     .table thead {
-        background: rgba(249, 115, 22, 0.1);
+        background: rgba(30, 58, 138, 0.1);
     }
     
     .table td,
@@ -84,10 +84,10 @@
 <div class="container my-5">
     <div class="order-success text-center">
         <div class="success-icon">
-            <i class="bi bi-check-circle-fill text-white" style="font-size: 4rem;"></i>
+            <i class="bi bi-check-circle-fill text-dark" style="font-size: 4rem;"></i>
         </div>
         <h2 class="mt-4 fw-bold">سفارش شما با موفقیت ثبت شد!</h2>
-        <p class="text-white mb-0">شماره سفارش: <strong style="color: var(--primary-color);">#{{ order.id }}</strong></p>
+        <p class="text-dark mb-0">شماره سفارش: <strong style="color: var(--primary-color);">#{{ order.id }}</strong></p>
     </div>
     
     <div class="row">
@@ -113,7 +113,7 @@
                     <hr style="border-color: var(--card-border);">
                     
                     <h6 class="fw-bold mb-3">آدرس ارسال:</h6>
-                    <p class="text-white">
+                    <p class="text-dark">
                         {{ order.city }}<br>
                         {{ order.address }}<br>
                         کد پستی: {{ order.postal_code }}
@@ -122,7 +122,7 @@
                     {% if order.notes %}
                     <hr style="border-color: var(--card-border);">
                     <h6 class="fw-bold mb-2">توضیحات:</h6>
-                    <p class="text-white">{{ order.notes }}</p>
+                    <p class="text-dark">{{ order.notes }}</p>
                     {% endif %}
                 </div>
             </div>
@@ -147,8 +147,8 @@
                                 <tr>
                                     <td class="text-muted"> 
                                         {{ item.product.name }}
-                                        {% if item.size %}<br><small class="text-white">سایز: {{ item.size }}</small>{% endif %}
-                                        {% if item.color %}<br><small class="text-white">رنگ: {{ item.color }}</small>{% endif %}
+                                        {% if item.size %}<br><small class="text-dark">سایز: {{ item.size }}</small>{% endif %}
+                                        {% if item.color %}<br><small class="text-dark">رنگ: {{ item.color }}</small>{% endif %}
                                     </td class="text-muted">
                                     <td class="text-muted">{{ item.price|floatformat:0 }} تومان</td>
                                     <td class="text-muted">{{ item.quantity }}</td>
@@ -173,7 +173,7 @@
                 <div class="card-body text-center">
                     <i class="bi bi-info-circle fs-1 mb-3" style="color: var(--primary-color);"></i>
                     <h5>مراحل بعدی</h5>
-                    <p class="text-white small">
+                    <p class="text-dark small">
                         سفارش شما در حال بررسی است. پس از تأیید، محصولات برای ارسال آماده می‌شوند.
                     </p>
                     <hr style="border-color: var(--card-border);">
@@ -189,7 +189,7 @@
             <div class="card order-card mt-3">
                 <div class="card-body">
                     <h6 class="fw-bold mb-3"><i class="bi bi-headset"></i> پشتیبانی</h6>
-                    <p class="small text-white">
+                    <p class="small text-dark">
                         در صورت داشتن سوال یا مشکل با پشتیبانی تماس بگیرید:
                     </p>
                     <p class="small" style="color: var(--text-secondary);">
