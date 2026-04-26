@@ -83,24 +83,21 @@
 /* =========================
    BUTTON GROUP FIX (IMPORTANT RTL FIX)
 ========================= */
-
-.btn-group {
-    direction: ltr;          /* جلوگیری از برعکس شدن ترتیب */
-    display: inline-flex;
-}
-
 .btn-group .btn {
-    direction: rtl;          /* متن فارسی درست */
-    border-radius: 0;
+    direction: rtl;
+    border-radius: 12px !important; /* همه دکمه‌ها گرد */
+    margin: 0 3px;                  /* فاصله خیلی کم بین دکمه‌ها */
 }
 
+/* این دو مورد رو حذف کن چون باعث صاف شدن وسط‌ها می‌شن */
 .btn-group .btn:first-child {
-    border-radius: 12px 0 0 12px;
+    border-radius: 12px;
 }
 
 .btn-group .btn:last-child {
-    border-radius: 0 12px 12px 0;
+    border-radius: 12px;
 }
+
 
 /* انتخاب دکمه */
 .btn-check:checked + .btn-outline-primary {
@@ -183,6 +180,10 @@ body {
 .text-end {
     text-align: left !important;
 }
+.breadcrumb-item + .breadcrumb-item::before {
+    color: #999;  /* اینو هر رنگی خواستی بذار، مثلاً #ccc یا آبی کمرنگ */
+}
+
 </style>{% endblock %}
 
 {% block content %}
@@ -214,10 +215,10 @@ body {
             {% endif %}
         </div>
         
-        <div class="col-md-6">
+        <div class="col-md-6 mt-4">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{% url 'shop:home' %}">خانه</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'shop:home' %}"> خانه / </a></li>
                     <li class="breadcrumb-item"><a href="{% url 'shop:product_list_by_category' product.category.slug %}">{{ product.category.name }}</a></li>
                     <li class="breadcrumb-item active">{{ product.name }}</li>
                 </ol>
@@ -259,8 +260,10 @@ body {
                     <div class="btn-group" role="group">
                         {% for size in product.get_sizes_list %}
                         <input type="radio" class="btn-check" name="size" id="size{{ forloop.counter }}" value="{{ size }}" {% if forloop.first %}checked{% endif %}>
-                        <label class="btn btn-outline-primary" for="size{{ forloop.counter }}">{{ size }}</label>
-                        {% endfor %}
+                        <label class="btn btn-outline-primary btn-sm px-4 py-2" for="size{{ forloop.counter }}">
+                            {{ size }}
+                        </label>             
+                                   {% endfor %}
                     </div>
                 </div>
                 {% endif %}
@@ -272,7 +275,7 @@ body {
                     <div class="btn-group" role="group">
                         {% for color in product.get_colors_list %}
                         <input type="radio" class="btn-check" name="color" id="color{{ forloop.counter }}" value="{{ color }}" {% if forloop.first %}checked{% endif %}>
-                        <label class="btn btn-outline-primary" for="color{{ forloop.counter }}">{{ color }}</label>
+                        <label class="btn btn-outline-primary btn-sm px-4 py-2" for="color{{ forloop.counter }}">{{ color }}</label>
                         {% endfor %}
                     </div>
                 </div>

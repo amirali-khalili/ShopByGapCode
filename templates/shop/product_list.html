@@ -11,56 +11,271 @@
         border-radius: 24px;
         box-shadow: var(--shadow-md);
         overflow: hidden;
+        position: sticky;
+        top: 100px;
     }
     
     .filter-sidebar .card-header {
-        background: rgba(249, 115, 22, 0.1);
+        background: linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(251, 146, 60, 0.1));
         border-bottom: 1px solid var(--card-border);
         border-radius: 24px 24px 0 0 !important;
+        padding: 1.5rem;
+    }
+    
+    .filter-sidebar .card-header h5 {
         color: var(--text-primary);
+        font-weight: 700;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .filter-sidebar .card-header i {
+        color: var(--primary-color);
+        font-size: 1.2rem;
     }
     
     .filter-sidebar .card-body {
         color: var(--text-primary);
+        padding: 1.5rem;
+    }
+    
+    .filter-section {
+        margin-bottom: 2rem;
+    }
+    
+    .filter-section:last-child {
+        margin-bottom: 0;
+    }
+    
+    .filter-section h6 {
+        color: var(--text-primary);
+        font-weight: 700;
+        margin-bottom: 1rem;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
     
     .filter-link {
         color: var(--text-secondary);
         text-decoration: none;
-        padding: 0.5rem 0;
-        display: block;
-        transition: all 0.3s ease;
-        border-radius: 8px;
-        padding-left: 0.5rem;
+        padding: 0.75rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: 12px;
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .filter-link::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 3px;
+        background: var(--primary-gradient);
+        transform: scaleY(0);
+        transition: transform 0.3s ease;
     }
     
     .filter-link:hover {
         color: var(--primary-color);
-        transform: translateX(-5px);
         background: rgba(249, 115, 22, 0.1);
+        transform: translateX(-5px);
     }
     
-    .filter-link.fw-bold {
+    .filter-link:hover::before {
+        transform: scaleY(1);
+    }
+    
+    .filter-link.active {
         color: var(--primary-color);
         background: rgba(249, 115, 22, 0.15);
+        font-weight: 600;
+    }
+    
+    .filter-link.active::before {
+        transform: scaleY(1);
+    }
+    
+    .filter-link i {
+        font-size: 0.85rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .filter-link.active i {
+        opacity: 1;
+    }
+    
+    .filter-divider {
+        border: none;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--card-border), transparent);
+        margin: 1.5rem 0;
+    }
+    
+    .price-filter-form .form-control {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--card-border);
+        color: var(--text-primary);
+        border-radius: 12px;
+        padding: 0.75rem 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .price-filter-form .form-control:focus {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+    }
+    
+    .price-filter-form .form-control::placeholder {
+        color: var(--text-secondary);
+        opacity: 0.6;
+    }
+    
+    .price-filter-form .btn-primary {
+        border-radius: 12px;
+        padding: 0.75rem;
+        font-weight: 600;
+        margin-top: 0.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .price-filter-form .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
     }
     
     .products-header {
         background: var(--card-bg);
         backdrop-filter: blur(20px);
         border: 1px solid var(--card-border);
-        border-radius: 20px;
-        padding: 1.5rem;
+        border-radius: 24px;
+        padding: 2rem;
         margin-bottom: 2rem;
-        box-shadow: var(--shadow-sm);
+        box-shadow: var(--shadow-md);
     }
     
     .products-header h2 {
         color: var(--text-primary);
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
     }
     
-    .filter-sidebar h6 {
+    .products-header .product-count {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .products-header .product-count i {
+        color: var(--primary-color);
+    }
+    
+    .sort-select {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--card-border);
         color: var(--text-primary);
+        border-radius: 12px;
+        padding: 0.75rem 1rem;
+        min-width: 180px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .sort-select:focus {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+        outline: none;
+    }
+    
+    .sort-select option {
+        background: var(--bg-primary);
+        color: var(--text-primary);
+    }
+    
+    .no-products-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--card-border);
+        border-radius: 24px;
+        padding: 4rem 2rem;
+        text-align: center;
+        box-shadow: var(--shadow-md);
+    }
+    
+    .no-products-card i {
+        font-size: 4rem;
+        color: var(--primary-color);
+        margin-bottom: 1.5rem;
+        display: block;
+        animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.7; transform: scale(1.05); }
+    }
+    
+    .no-products-card h5 {
+        color: var(--text-primary);
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        font-size: 1.5rem;
+    }
+    
+    .no-products-card p {
+        color: var(--text-secondary);
+        font-size: 1.05rem;
+    }
+    
+    .product-img {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .product-img.loaded {
+        opacity: 1;
+    }
+    
+    @media (max-width: 768px) {
+        .filter-sidebar {
+            position: static;
+            margin-bottom: 2rem;
+        }
+        
+        .products-header {
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1.5rem;
+        }
+        
+        .sort-select {
+            width: 100%;
+            min-width: unset;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .products-header {
+            padding: 1rem;
+        }
     }
 </style>
 {% endblock %}
@@ -70,55 +285,63 @@
     <div class="row">
         <!-- Sidebar -->
         <div class="col-md-3">
-            <div class="card mb-4 filter-sidebar">
+            <div class="filter-sidebar">
                 <div class="card-header">
-                    <h5 class="mb-0"><i class="bi bi-funnel"></i> فیلترها</h5>
+                    <h5><i class="bi bi-funnel-fill"></i> فیلترها</h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body " >
                     <!-- Categories -->
-                    <h6 class="fw-bold mb-3">دسته‌بندی‌ها</h6>
-                    <ul class="list-unstyled">
-                        <li class="mb-2">
-                            <a href="{% url 'shop:product_list' %}" class="filter-link {% if not category %}fw-bold{% endif %}">
-                                همه محصولات
-                            </a>
-                        </li>
-                        {% for cat in categories %}
-                        <li class="mb-2">
-                            <a href="{% url 'shop:product_list_by_category' cat.slug %}" class="filter-link {% if category == cat %}fw-bold{% endif %}">
-                                {{ cat.name }}
-                            </a>
-                        </li>
-                        {% endfor %}
-                    </ul>
+                    <div class="filter-section">
+                        <h6>دسته‌بندی‌ها</h6>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="{% url 'shop:product_list' %}" class="filter-link {% if not category %}active{% endif %}">
+                                    <span>همه محصولات</span>
+                                    <i class="bi bi-check-circle-fill"></i>
+                                </a>
+                            </li>
+                            {% for cat in categories %}
+                            <li>
+                                <a href="{% url 'shop:product_list_by_category' cat.slug %}" class="filter-link {% if category == cat %}active{% endif %}">
+                                    <span>{{ cat.name }}</span>
+                                    <i class="bi bi-check-circle-fill"></i>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                     
-                    <hr style="border-color: var(--card-border);">
+                    <hr class="filter-divider">
                     
                     <!-- Price Filter -->
-                    <h6 class="fw-bold mb-3">محدوده قیمت</h6>
-                    <form method="get">
-                        <div class="mb-2">
-                            <input type="number" name="min_price" class="form-control form-control-sm" 
-                                   placeholder="از (تومان)" value="{{ request.GET.min_price }}">
-                        </div>
-                        <div class="mb-2">
-                            <input type="number" name="max_price" class="form-control form-control-sm" 
-                                   placeholder="تا (تومان)" value="{{ request.GET.max_price }}">
-                        </div>
-                        {% if request.GET.q %}
-                            <input type="hidden" name="q" value="{{ request.GET.q }}">
-                        {% endif %}
-                        <button type="submit" class="btn btn-primary btn-sm w-100">اعمال فیلتر</button>
-                    </form>
+                    <div class="filter-section">
+                        <h6>محدوده قیمت</h6>
+                        <form method="get" class="price-filter-form">
+                            <div class="mb-3">
+                                <input type="number" name="min_price" class="form-control" 
+                                       placeholder="از (تومان)" value="{{ request.GET.min_price }}">
+                            </div>
+                            <div class="mb-3">
+                                <input type="number" name="max_price" class="form-control" 
+                                       placeholder="تا (تومان)" value="{{ request.GET.max_price }}">
+                            </div>
+                            {% if request.GET.q %}
+                                <input type="hidden" name="q" value="{{ request.GET.q }}">
+                            {% endif %}
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="bi bi-funnel"></i> اعمال فیلتر
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
         
         <!-- Products -->
         <div class="col-md-9">
-            <div class="products-header d-flex justify-content-between align-items-center">
+            <div class="products-header d-flex justify-content-between align-items-center flex-wrap">
                 <div>
-                    <h2 class="fw-bold mb-1">
+                    <h2>
                         {% if category %}
                             {{ category.name }}
                         {% elif query %}
@@ -127,13 +350,16 @@
                             همه محصولات
                         {% endif %}
                     </h2>
-                    <p class="text-white mb-0">{{ products.count }} محصول یافت شد</p>
+                    <p class="product-count mb-0">
+                        <i class="bi bi-box-seam"></i>
+                        <span>{{ products.count }} محصول یافت شد</span>
+                    </p>
                 </div>
                 
                 <!-- Sort -->
                 <div>
                     <form method="get" class="d-inline">
-                        <select name="sort" class="form-select form-select-sm" onchange="this.form.submit()">
+                        <select name="sort" class="sort-select" onchange="this.form.submit()">
                             <option value="-created_at" {% if request.GET.sort == '-created_at' %}selected{% endif %}>جدیدترین</option>
                             <option value="price" {% if request.GET.sort == 'price' %}selected{% endif %}>ارزان‌ترین</option>
                             <option value="-price" {% if request.GET.sort == '-price' %}selected{% endif %}>گران‌ترین</option>
@@ -150,12 +376,12 @@
             <div class="row g-4">
                 {% for product in products %}
                 <div class="col-lg-3 col-6">
-                        <div class="card product-card h-100">
+                    <div class="card product-card h-100">
                         <div class="position-relative">
                             {% if product.image %}
-                                <img src="{{ product.image.url }}" class="card-img-top product-img" alt="{{ product.name }}">
+                                <img src="{{ product.image.url }}" class="card-img-top product-img" alt="{{ product.name }}" loading="lazy">
                             {% else %}
-                                <img src="https://via.placeholder.com/300x300?text={{ product.name }}" class="card-img-top product-img" alt="{{ product.name }}">
+                                <img src="https://via.placeholder.com/300x300?text={{ product.name }}" class="card-img-top product-img" alt="{{ product.name }}" loading="lazy">
                             {% endif %}
                             {% if product.get_discount_percent %}
                                 <span class="badge-discount">{{ product.get_discount_percent }}% تخفیف</span>
@@ -179,22 +405,44 @@
                             {% endif %}
                         </div>
                         <div class="card-footer border-0" style="background: transparent;">
-                   <a href="{% url 'shop:product_detail' product.slug %}" class="btn btn-primary btn-sm">
-    <i class="bi bi-eye"></i> مشاهده جزئیات
-</a>
+                            <a href="{% url 'shop:product_detail' product.slug %}" class="btn btn-outline-primary btn-sm">
+                                <i class="bi bi-eye"></i> مشاهده جزئیات
+                            </a>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
             </div>
             {% else %}
-            <div class="card text-center p-5">
-                <i class="bi bi-info-circle fs-1 d-block mb-3" style="color: var(--primary-color);"></i>
-                <h5 class="fw-bold" style="color: var(--text-primary);">محصولی یافت نشد</h5>
-                <p class="text-muted">متأسفانه محصولی با این مشخصات پیدا نشد.</p>
+            <div class="no-products-card">
+                <i class="bi bi-inbox"></i>
+                <h5>محصولی یافت نشد</h5>
+                <p>متأسفانه محصولی با این مشخصات پیدا نشد.</p>
             </div>
             {% endif %}
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const images = document.querySelectorAll('.product-img');
+    
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.classList.add('loaded');
+                observer.unobserve(img);
+            }
+        });
+    }, {
+        rootMargin: '50px'
+    });
+    
+    images.forEach(img => {
+        imageObserver.observe(img);
+    });
+});
+</script>
 {% endblock %}

@@ -163,25 +163,25 @@
         <div class="row">
             <div class="col-md-3 col-sm-6">
                 <div class="stat-item">
-                    <span class="stat-number">10+</span>
+                    <span class="stat-number" data-target="10">0</span>
                     <span class="stat-label">سال تجربه</span>
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="stat-item">
-                    <span class="stat-number">5000+</span>
+                    <span class="stat-number" data-target="60">0</span>
                     <span class="stat-label">مشتری راضی</span>
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="stat-item">
-                    <span class="stat-number">1000+</span>
+                    <span class="stat-number" data-target="100">0</span>
                     <span class="stat-label">محصول</span>
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="stat-item">
-                    <span class="stat-number">50+</span>
+                    <span class="stat-number" data-target="20">0</span>
                     <span class="stat-label">برند معتبر</span>
                 </div>
             </div>
@@ -229,4 +229,44 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const statNumbers = document.querySelectorAll('.stat-number');
+    let animated = false;
+
+    function animateCounter(element) {
+        const target = parseInt(element.getAttribute('data-target'));
+        const duration = 2000;
+        const increment = target / (duration / 16);
+        let current = 0;
+
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                element.textContent = target.toLocaleString() + '+';
+                clearInterval(timer);
+            } else {
+                element.textContent = Math.floor(current).toLocaleString();
+            }
+        }, 16);
+    }
+
+    function checkScroll() {
+        if (animated) return;
+
+        const statsSection = document.querySelector('.stats-section');
+        const rect = statsSection.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        if (rect.top < windowHeight * 0.8) {
+            animated = true;
+            statNumbers.forEach(stat => animateCounter(stat));
+        }
+    }
+
+    window.addEventListener('scroll', checkScroll);
+    checkScroll();
+});
+</script>
 {% endblock %}
